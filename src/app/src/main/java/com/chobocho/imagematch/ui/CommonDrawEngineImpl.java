@@ -1,4 +1,4 @@
-package com.chobocho.imagematch.ui.game;
+package com.chobocho.imagematch.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

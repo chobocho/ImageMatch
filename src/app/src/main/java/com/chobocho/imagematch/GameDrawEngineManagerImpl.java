@@ -3,9 +3,9 @@ package com.chobocho.imagematch;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import com.chobocho.imagematch.ui.CommonDrawEngineImpl;
 import com.chobocho.imagematch.ui.DrawEngine;
 import com.chobocho.imagematch.ui.DrawEngineManager;
-import com.chobocho.imagematch.ui.game.CommonDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.EndDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.GameoverDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.IdleDrawEngineImpl;
