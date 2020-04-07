@@ -9,7 +9,7 @@ import com.chobocho.imagematch.BoardProfile;
 import com.chobocho.imagematch.ui.DrawEngine;
 import com.chobocho.imagematch.ui.DrawEngineImpl;
 import com.chobocho.mahjong.BoardGame;
-
+import com.chobocho.mahjong.board.Board;
 
 public class MainDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
     Paint paint = new Paint();
@@ -20,18 +20,18 @@ public class MainDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
     }
 
     private void onDrawCommon(Canvas g, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
-        int screenW = g.getWidth();
-        int screenH = g.getHeight();
+        int screenW = boardProfile.screenW;
+        int screenH = boardProfile.screenH;
 
-        int startX = boardProfile.startX;
-        int startY = boardProfile.startY;
-        int h = boardProfile.boardHeight;
-        int w = boardProfile.boardWidth;
-        int imgSize = boardProfile.blockSize;
-         for (int i = 0; i < h; i++) {
-             for (int j = 0; j < w; j++) {
-                 drawImage(g, blockImages[0], startX + j * imgSize, startY + i * imgSize, imgSize, imgSize, paint);
-             }
-         }
+        int startX = boardProfile.buttonX;
+        int startY = boardProfile.buttonY;
+
+        int buttonGap = boardProfile.blockSize*2;
+
+        drawImage(g, buttonImages[BoardProfile.NEW_GAME_BUTTON], startX, startY, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.RESUME_BUTTON], startX, startY + buttonGap, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.RANKING_BUTTON], startX, startY + buttonGap*2, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.ABOUT_BUTTON], startX, startY + buttonGap*3, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.QUIT_BUTTON], startX, startY + buttonGap*4, boardProfile.buttonW, boardProfile.buttonH, paint);
     }
 }

@@ -16,10 +16,10 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
     @Override
     public void onDraw(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
-        onDrawCommon(g, boardProfile, blockImages, buttonImages);
+        onDrawCommon(g, game, boardProfile, blockImages, buttonImages);
     }
 
-    private void onDrawCommon(Canvas g, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
+    private void onDrawCommon(Canvas g,  BoardGame game,BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
         int screenW = g.getWidth();
         int screenH = g.getHeight();
 
@@ -28,10 +28,15 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int h = boardProfile.boardHeight;
         int w = boardProfile.boardWidth;
         int imgSize = boardProfile.blockSize;
+
+        int[][] board = game.getBoard().getBoard();
+
          for (int i = 0; i < h; i++) {
              for (int j = 0; j < w; j++) {
-                 drawImage(g, blockImages[0], startX + j * imgSize, startY + i * imgSize, imgSize, imgSize, paint);
+                 drawImage(g, blockImages[board[i][j]], startX + j * imgSize, startY + i * imgSize, imgSize, imgSize, paint);
              }
          }
+
+        drawImage(g, buttonImages[boardProfile.PAUSE_BUTTON], screenW-imgSize-20, screenH-imgSize-20, imgSize, imgSize, paint);
     }
 }

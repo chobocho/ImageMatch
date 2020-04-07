@@ -3,18 +3,25 @@ package com.chobocho.mahjong.command;
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.util.CLog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CommandEngine {
     final static String TAG = "CommandEngine";
+    final public static int GAME_MODE = 1;
+    final public static int CONFIG_MODE = 2;
+
     BoardGame game;
     HashMap<String, ComandFunction> functionMap;
+    List<CmdEngineObserver> observers;
     boolean isRunning;
 
     public CommandEngine(BoardGame game) {
         isRunning = false;
         this.game = game;
         this.functionMap = new HashMap<String, ComandFunction>();
+        this.observers = new ArrayList<>();
         initFunction();
     }
 
@@ -35,9 +42,15 @@ public class CommandEngine {
             CLog.i(TAG, "Previous command is not finished");
             return false;
         }
-        isRunning = true;
+
 
         CLog.i(TAG, command.toString());
+        if (command.command.equals(PlayCommand.NEW_GAME)) {
+            notify(GAME_MODE);
+            return true;
+        }
+
+        isRunning = true;
         boolean result = functionMap.get(command.command).run(this.game, command.x1, command.y1, command.x2, command.y2);
         if (game.isFinishGame()) {
             isRunning = false;
@@ -45,5 +58,16 @@ public class CommandEngine {
         }
         isRunning = false;
         return result;
+    }
+
+    public void register(CmdEngineObserver observer) {
+        CLog.i(TAG, "Registered!");
+        observers.add(observer);
+    }
+
+    public void notify(int state) {
+        for (int i = 0; i < observers.size(); i++) {
+            observers.get(i).updateMode(state);
+        }
     }
 }

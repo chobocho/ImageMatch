@@ -5,7 +5,7 @@ public class CLog {
     public static int LOG_LEVEL_INFO = 3;
     public static int LOG_LEVEL_ERROR = 1;
 
-    protected static int debugLevel = LOG_LEVEL_INFO;
+    protected static int debugLevel = LOG_LEVEL_DEBUG;
 
     public static int SetDebugLevel(int level) {
         if ((level > LOG_LEVEL_DEBUG) || (level < LOG_LEVEL_ERROR)) {

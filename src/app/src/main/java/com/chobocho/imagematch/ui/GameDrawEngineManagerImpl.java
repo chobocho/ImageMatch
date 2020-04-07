@@ -1,11 +1,11 @@
-package com.chobocho.imagematch;
+package com.chobocho.imagematch.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import com.chobocho.imagematch.ui.CommonDrawEngineImpl;
-import com.chobocho.imagematch.ui.DrawEngine;
-import com.chobocho.imagematch.ui.DrawEngineManager;
+import com.chobocho.imagematch.AndroidLog;
+import com.chobocho.imagematch.BoardProfile;
+import com.chobocho.imagematch.MahjongGameView;
 import com.chobocho.imagematch.ui.game.EndDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.GameoverDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.IdleDrawEngineImpl;
@@ -15,7 +15,7 @@ import com.chobocho.imagematch.ui.game.PlayDrawEngineImpl;
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.GameObserver;
 
-class GameDrawEngineManagerImpl implements DrawEngineManager, GameObserver {
+public class GameDrawEngineManagerImpl implements DrawEngineManager, GameObserver {
     final String TAG = this.getClass().getSimpleName();
     BoardGame game;
     BoardProfile boardProfile;

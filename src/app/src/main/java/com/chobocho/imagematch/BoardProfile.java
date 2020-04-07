@@ -1,28 +1,53 @@
 package com.chobocho.imagematch;
 
 public class BoardProfile {
+    final static public String TAG = "BoardProfile";
     final static public int NEW_GAME_BUTTON = 0;
+    final static public int ABOUT_BUTTON = 1;
+    final static public int RANKING_BUTTON = 2;
+    final static public int QUIT_BUTTON = 3;
     final static public int START_BUTTON = 4;
-    final static public int RESUME_BUTTON = 5;
-    final static public int WIN_BUTTON = 6;
+    final static public int PAUSE_BUTTON = 5;
+    final static public int RESUME_BUTTON = 6;
+    final static public int WIN_BUTTON = 7;
 
-    final static public int screenW = 1080;
-    final static public int screenH = 1820;
 
-    final static public int blockSize = 130;
+    public static int screenW = 1080;
+    public static int screenH = 1820;
 
-    final static public int startX = 0;
-    final static public int startY = blockSize;
+    public static int blockSize = 130;
 
-    final static public int buttonW = 200;
-    final static public int buttonH = 100;
-    final static public int buttonX =  (screenW - buttonW)/2;
-    final static public int buttonY =  50;
+    public static int startX = 0;
+    public static int startY = blockSize;
+
+    static public int buttonW = 400;
+    static public int buttonH = 130;
+    static public int buttonX =  (screenW - buttonW)/2;
+    static public int buttonY =  50;
 
     final static public int boardWidth = 8;
     final static public int boardHeight = 12;
 
+    public BoardProfile(int w, int h) {
+        setScreenSize(w, h);
+    }
 
+    public void setScreenSize(int w, int h) {
+        this.screenW = w;
+        this.screenH = h;
+
+        int widthBlockSize = (int) (h / (boardHeight+3));
+        blockSize = (int) (w / boardWidth);
+        AndroidLog.i(TAG, "W: " + blockSize + ", H: " + widthBlockSize);
+        blockSize = blockSize <= widthBlockSize ? blockSize : widthBlockSize;
+        startX = (int)((w - (blockSize * boardWidth))/2);
+        startY = blockSize;
+        buttonW = blockSize * 4;
+        buttonH = ((int)(blockSize * 1.5));
+
+        buttonX =  (screenW - buttonW)/2;
+        buttonY =  blockSize*2;
+    }
 
     public final static int[] imageName = {
             R.drawable.block0,
@@ -63,14 +88,15 @@ public class BoardProfile {
             R.drawable.block35
     };
 
-    final static public String[] ButtonImageName = {
-            "img/newgame.png",
-            "img/about.png",
-            "img/ranking.png",
-            "img/quit.png",
-            "img/start.png",
-            "img/resume.png",
-            "img/win.png"
+    final static public int[] ButtonImageName = {
+            R.drawable.newgame,
+            R.drawable.about,
+            R.drawable.ranking,
+            R.drawable.quit,
+            R.drawable.start,
+            R.drawable.pause,
+            R.drawable.resume,
+            R.drawable.win
     };
 
 }

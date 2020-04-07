@@ -16,6 +16,7 @@ public abstract class CommandFactory implements GameObserver {
     protected CommandFactoryState playState;
     protected CommandFactoryState pauseState;
     protected CommandFactoryState endState;
+    protected CommandFactoryState gameoverState;
     @Override
     public void updateState(int nextState) {
         CLog.i(TAG, "updateState: " + nextState);
@@ -34,6 +35,9 @@ public abstract class CommandFactory implements GameObserver {
                 break;
             case BoardGame.END_STATE:
                 state=endState;
+                break;
+            case BoardGame.GAMEOVER_STATE:
+                state=gameoverState;
                 break;
             default:
                 break;
