@@ -12,6 +12,7 @@ abstract public class BoardGameImpl implements BoardGame {
     protected PlayState playState;
     protected PauseState pauseState;
     protected EndState endState;
+    protected GameoverState gameoverState;
     protected ArrayList<GameObserver> observers = new ArrayList<>();
 
 

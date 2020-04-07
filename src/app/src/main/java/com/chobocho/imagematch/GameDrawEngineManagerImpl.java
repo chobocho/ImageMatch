@@ -6,8 +6,12 @@ import android.graphics.Canvas;
 import com.chobocho.imagematch.ui.DrawEngine;
 import com.chobocho.imagematch.ui.DrawEngineManager;
 import com.chobocho.imagematch.ui.game.CommonDrawEngineImpl;
+import com.chobocho.imagematch.ui.game.EndDrawEngineImpl;
+import com.chobocho.imagematch.ui.game.GameoverDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.IdleDrawEngineImpl;
 import com.chobocho.imagematch.ui.game.NoneDrawEngineImpl;
+import com.chobocho.imagematch.ui.game.PauseDrawEngineImpl;
+import com.chobocho.imagematch.ui.game.PlayDrawEngineImpl;
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.GameObserver;
 
@@ -26,14 +30,14 @@ class GameDrawEngineManagerImpl implements DrawEngineManager, GameObserver {
         this.parent = parent;
 
         this.commonDrawEngine = new CommonDrawEngineImpl();
-        boardDrawEngines = new DrawEngine[BoardGame.END_STATE + 1];
+        boardDrawEngines = new DrawEngine[BoardGame.GAMEOVER_STATE + 1];
         boardDrawEngines[BoardGame.NONE_STATE] = new NoneDrawEngineImpl();
         boardDrawEngines[BoardGame.IDLE_STATE] = new IdleDrawEngineImpl();
-        /*
         boardDrawEngines[BoardGame.PLAY_STATE] = new PlayDrawEngineImpl();
         boardDrawEngines[BoardGame.PAUSE_STATE] = new PauseDrawEngineImpl();
         boardDrawEngines[BoardGame.END_STATE] = new EndDrawEngineImpl();
-*/
+        boardDrawEngines[BoardGame.GAMEOVER_STATE] = new GameoverDrawEngineImpl();
+
         drawEngine = boardDrawEngines[BoardGame.NONE_STATE];
 
         game.register(this);
@@ -56,6 +60,9 @@ class GameDrawEngineManagerImpl implements DrawEngineManager, GameObserver {
                 break;
             case BoardGame.END_STATE:
                 drawEngine = boardDrawEngines[BoardGame.END_STATE];
+                break;
+            case BoardGame.GAMEOVER_STATE:
+                drawEngine = boardDrawEngines[BoardGame.GAMEOVER_STATE];
                 break;
             default:
                 break;

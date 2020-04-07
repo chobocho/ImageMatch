@@ -17,11 +17,10 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
         playState = new PlayState(width, height);
         pauseState = new PauseState();
         endState = new EndState();
+        gameoverState = new GameoverState();
 
         setState(BoardGame.IDLE_STATE);
     }
-
-
 
     public boolean play() {
         return setState(PLAY_STATE);
@@ -33,6 +32,10 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
 
     public boolean winState() {
         return setState(END_STATE);
+    }
+
+    public boolean gameoverState() {
+        return setState(GAMEOVER_STATE);
     }
 
     public boolean idle() {

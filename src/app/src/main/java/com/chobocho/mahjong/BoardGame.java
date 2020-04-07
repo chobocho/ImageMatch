@@ -8,6 +8,7 @@ public interface BoardGame {
     int PLAY_STATE = 2;
     int PAUSE_STATE = 3;
     int END_STATE = 4;
+    int GAMEOVER_STATE = 5;
 
     public boolean idle();
 
@@ -16,6 +17,8 @@ public interface BoardGame {
     public boolean pause();
 
     public boolean winState();
+
+    public boolean gameoverState();
 
     public void register(GameObserver observer);
 
