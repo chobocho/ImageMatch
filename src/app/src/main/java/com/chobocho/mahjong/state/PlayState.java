@@ -12,11 +12,13 @@ public class PlayState extends MajhongGameState {
     Board board;
     int boardWidth = 8;
     int boardHeigth = 12;
+    int blockKind = 35;
     int stage = 0;
 
-    public PlayState(int width, int height) {
+    public PlayState(int width, int height, int blockKind) {
         this.boardWidth = width;
         this.boardHeigth = height;
+        this.blockKind = blockKind;
 
         initVars();
         initGame(stage);
@@ -27,7 +29,7 @@ public class PlayState extends MajhongGameState {
     }
 
     private void initVars() {
-        board = new BoardImpl (boardWidth, boardHeigth);
+        board = new BoardImpl (boardWidth, boardHeigth, blockKind);
     }
 
 

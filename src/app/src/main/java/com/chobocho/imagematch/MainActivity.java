@@ -12,7 +12,7 @@ import com.chobocho.mahjong.command.CommandEngine;
 
 public class MainActivity extends AppCompatActivity {
     BoardProfile boardProfile;
-    BoardGame majhong = new MahjongImpl(new AndroidLog(),boardProfile.boardWidth, boardProfile.boardHeight);
+    BoardGame majhong = new MahjongImpl(new AndroidLog(),boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind);
     CommandEngine cmdEngine = new CommandEngine(majhong);
     MahjongGameView gameView;
 

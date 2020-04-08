@@ -28,6 +28,8 @@ public class BoardProfile {
     final static public int boardWidth = 8;
     final static public int boardHeight = 12;
 
+    public static int blockKind = 35;
+
     public BoardProfile(int w, int h) {
         setScreenSize(w, h);
     }

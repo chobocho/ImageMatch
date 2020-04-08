@@ -12,20 +12,22 @@ public class BoardImpl implements Board {
     protected InitBoardMethod initMethod;
     protected int blockCount = 0;
 
-    int BLOCK_NUMBER = 35;
+    int blockKind = 35;
     int EMPTY = 0;
 
-    public BoardImpl(int w, int h) {
+    public BoardImpl(int w, int h, int blockKind) {
         width = w;
         height = h;
+        this.blockKind = blockKind;
         this.initMethod = new InitBoardMethodImpl();
         initVars();
         initBoard();
     }
 
-    public BoardImpl(int w, int h, InitBoardMethod initMethod) {
+    public BoardImpl(int w, int h, int blockKind, InitBoardMethod initMethod) {
         width = w;
         height = h;
+        this.blockKind = blockKind;
         this.initMethod = initMethod;
         initVars();
         initBoard();
@@ -37,10 +39,6 @@ public class BoardImpl implements Board {
 
     private void initVars() {
         board = new int[height+1][width+1];
-
-        for(int i = 0; i < height; i++) {
-            board[i] = new int[width+1];
-        }
     }
 
     private void initBoard() {
@@ -61,8 +59,8 @@ public class BoardImpl implements Board {
             blockStart = 1;
         }
 
-        if ( blockTypeRange > BLOCK_NUMBER ) {
-            blockTypeRange = BLOCK_NUMBER;
+        if ( blockTypeRange > blockKind) {
+            blockTypeRange = blockKind;
         }
 
         int loopCount = 1000;
@@ -78,7 +76,7 @@ public class BoardImpl implements Board {
         CLog.i(TAG, "insertBlock " + blockStart);
         int MAX_LOOPCOUNT = 100;
 
-        int blockType = ((int)(Math.random() * BLOCK_NUMBER) % blockTypeRange + blockStart ) % BLOCK_NUMBER;
+        int blockType = ((int)(Math.random() * blockKind) % blockTypeRange + blockStart ) % blockKind;
 
         if ( blockType == EMPTY ) {
             blockType = EMPTY + 1;
