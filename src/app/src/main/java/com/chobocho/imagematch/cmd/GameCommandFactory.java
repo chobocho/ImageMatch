@@ -20,7 +20,7 @@ public class GameCommandFactory extends CommandFactory {
         noneState = new WinNoneCommandFactoryStateImpl(profile);
         playState = new WinPlayCommandFactoryStateImpl(profile);
         pauseState = new WinPauseCommandFactoryStateImpl();
-        endState = new WinEndCommandFactoryStateImpl();
+        endState = new WinEndCommandFactoryStateImpl(profile);
         gameoverState = new WinGameoverCommandFactoryStateImpl();
         state = idleState;
 

@@ -57,10 +57,9 @@ public class WinPlayCommandFactoryStateImpl extends PlayCommandFactoryStateImpl 
         int screenH = boardProfile.screenH;
 
         int imgSize = boardProfile.blockSize;
-        int startX = screenW-imgSize-20;
+        int startX = boardProfile.endX - imgSize-20;
         int startY = screenH-imgSize-20;
 
-        int buttonGap = boardProfile.blockSize*2;
         buttons.push(new ButtonPosition(PlayCommand.PAUSE, startX, startY, startX + imgSize,startY + imgSize));
         AndroidLog.i(TAG, "addButtons");
     }

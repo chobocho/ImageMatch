@@ -7,6 +7,11 @@ import com.chobocho.mahjong.command.*;
 
 public class WinEndCommandFactoryStateImpl extends EndCommandFactoryStateImpl implements CommandFactoryState {
     final static String TAG = "WinEndCommandFactoryStateImpl";
+    BoardProfile boardProfile;
+
+    public WinEndCommandFactoryStateImpl(BoardProfile boardProfile) {
+        this.boardProfile = boardProfile;
+    }
 
     @Override
     public PlayCommand createCommand(int event, int x, int y) {
@@ -36,11 +41,11 @@ public class WinEndCommandFactoryStateImpl extends EndCommandFactoryStateImpl im
     @Override
     public void addButtons() {
         AndroidLog.i(TAG, "addButtons");
-        int screenW = BoardProfile.screenW;
-        int buttonW = BoardProfile.buttonW;
-        int buttonH = BoardProfile.buttonH;
-        int buttonY = BoardProfile.buttonY;
-        buttons.push(new ButtonPosition(PlayCommand.IDLE, (screenW-buttonW)/2, buttonY, (screenW-buttonW)/2+buttonW,buttonY+buttonH));
+        int x1 = BoardProfile.startX;
+        int y1 = BoardProfile.startY;
+        int x2 = BoardProfile.endX;
+        int y2 = BoardProfile.endY;
+        buttons.push(new ButtonPosition(PlayCommand.IDLE, x1, y1, x2, y2));
         AndroidLog.i(TAG,buttons.toString());
     }
 }

@@ -14,11 +14,13 @@ public class PlayState extends MajhongGameState {
     int boardHeigth = 12;
     int blockKind = 35;
     int stage = 0;
+    BoardGame game;
 
-    public PlayState(int width, int height, int blockKind) {
+    public PlayState(BoardGame game, int width, int height, int blockKind) {
         this.boardWidth = width;
         this.boardHeigth = height;
         this.blockKind = blockKind;
+        this.game = game;
 
         initVars();
         initGame(stage);
@@ -64,13 +66,17 @@ public class PlayState extends MajhongGameState {
     public boolean removeBlock(int x, int y) {
         CLog.i(TAG, "removeBlock");
 
-        boolean result = board.removeBlock(x, y);
+        int result = board.removeBlock(x, y);
 
         if (board.needShuffle()) {
             board.shuffle();
         }
 
-        return result;
+        if (result > 0) {
+            game.addTick(result);
+            return true;
+        }
+        return false;
 
     }
 

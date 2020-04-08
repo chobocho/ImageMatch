@@ -29,4 +29,5 @@ abstract public class GameState {
     public Board getBoard() {
         return null;
     }
+
 }

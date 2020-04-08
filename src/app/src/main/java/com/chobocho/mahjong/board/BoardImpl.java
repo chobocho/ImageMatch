@@ -64,6 +64,10 @@ public class BoardImpl implements Board {
         }
 
         int loopCount = 1000;
+
+        int maxBlockCount =  (int)(width * height * 0.35);
+        stage = stage <= maxBlockCount ? stage : maxBlockCount;
+
         while (stage > 0 && loopCount > 0) {
             if (insertBlock(blockStart, blockTypeRange)) {
                 stage--;
@@ -139,10 +143,11 @@ public class BoardImpl implements Board {
         return board;
     }
 
-    public boolean removeBlock(int x, int y){
+    public int removeBlock(int x, int y){
         CLog.i(TAG, "removeBlock " + x + ", " + y);
 
         LinkedList<Block> removeBlocks = getRemovableBlocks(x, y);
+        int count = 0;
 
         if (removeBlocks.size() > 0) {
             CLog.i(TAG, "removeBlock BlockCount " +blockCount);
@@ -152,10 +157,10 @@ public class BoardImpl implements Board {
             }
             CLog.i(TAG, "removeBlock BlockCount " +blockCount);
             CLog.i(TAG, "removeBlock count " +removeBlocks.size());
+            count += removeBlocks.size();
             removeBlocks.clear();
-            return true;
         }
-        return false;
+        return count/2;
     }
 
     public boolean isClear() {

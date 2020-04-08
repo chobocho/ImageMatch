@@ -4,15 +4,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 import com.chobocho.imagematch.cmd.CommandFactoryManager;
-import com.chobocho.imagematch.ui.DrawEngineManager;
 import com.chobocho.imagematch.ui.DrawModeManager;
 import com.chobocho.mahjong.BoardGame;
+import com.chobocho.mahjong.Mahjong;
 import com.chobocho.mahjong.command.CommandEngine;
 import com.chobocho.mahjong.command.CommandFactory;
 import com.chobocho.mahjong.command.PlayCommand;
@@ -33,6 +35,10 @@ public class MahjongGameView extends View {
     Bitmap[] blockImages;
     Bitmap[] buttonImages;
 
+    private HandlerThread gameHandlerThread;
+    private Handler gameHandler;
+    private static final int EMPTY_MESSAGE = 0;
+
     public MahjongGameView(Context context, BoardGame game, BoardProfile boardProfile, CommandEngine cmdEngine) {
         super(context);
         this.mContext = context;
@@ -45,20 +51,62 @@ public class MahjongGameView extends View {
 
         drawEngine = new DrawModeManagerImpl(game, boardProfile, cmdEngine, this);
         commandFactory = new CommandFactoryManagerImpl(game, boardProfile, cmdEngine);
+        createGameThread();
+    }
+
+
+    private void createGameThread() {
+        Log.d(TAG,"createPlayerThread");
+        gameHandlerThread = new HandlerThread("Game Processing Thread");
+        gameHandlerThread.start();
+        gameHandler = new Handler(gameHandlerThread.getLooper()){
+            @Override
+            public void handleMessage(Message msg){
+                if (game != null && game.isPlayState()) {
+                    Log.i(TAG, "1 seconds");
+                    int gameSpeed = 800; // - (player.getScore() / 10000);
+                    if (gameHandler.hasMessages(EMPTY_MESSAGE)) {
+                        gameHandler.removeMessages(EMPTY_MESSAGE);
+                    }
+                    if (!game.tick()) {
+                        ((Mahjong)game).gameoverState();
+                    } else {
+                        gameHandler.sendEmptyMessageDelayed(EMPTY_MESSAGE, gameSpeed);
+                    }
+                    invalidate();
+                }
+            }
+        };
     }
 
 
     public void startGame() {
-
+        Log.d(TAG, "startGame");
+        gameHandler.sendEmptyMessage(EMPTY_MESSAGE);
     }
 
     public void pauseGame() {
+        Log.d(TAG, "pauseGame");
+        if (gameHandler.hasMessages(EMPTY_MESSAGE)) {
+            gameHandler.removeMessages(EMPTY_MESSAGE);
+            gameHandler = null;
+            Log.d(TAG, "Removed event");
+        }
+        if (game != null && game.isPlayState()) {
+            game.pause();
+        }
 
+        if (gameHandlerThread != null) {
+            gameHandlerThread.quit();
+        }
+        // saveScore();
     }
 
     public void resumeGame() {
-
+        Log.d(TAG, "resumeGame");
+        createGameThread();
     }
+
 
     public void update() {
         Log.d(TAG, "View.update()");

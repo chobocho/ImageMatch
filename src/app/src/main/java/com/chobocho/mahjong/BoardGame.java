@@ -27,4 +27,8 @@ public interface BoardGame {
     public boolean isFinishGame();
 
     public Board getBoard();
+
+    public boolean tick();
+    public boolean addTick(int t);
+    public int getTime();
 }

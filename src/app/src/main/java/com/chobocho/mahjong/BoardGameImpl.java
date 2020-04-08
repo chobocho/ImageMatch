@@ -14,7 +14,7 @@ abstract public class BoardGameImpl implements BoardGame {
     protected EndState endState;
     protected GameoverState gameoverState;
     protected ArrayList<GameObserver> observers = new ArrayList<>();
-
+    protected int leftTime;
 
     abstract public boolean idle();
 
@@ -42,5 +42,24 @@ abstract public class BoardGameImpl implements BoardGame {
         }
     }
 
+    public boolean tick() {
+        leftTime--;
+        if (leftTime < 0) {
+            leftTime = 0;
+        }
+        return leftTime > 0;
+    }
+
+    public boolean addTick(int t) {
+        leftTime += t;
+        if (leftTime > 10) {
+            leftTime = 10;
+        }
+        return true;
+    }
+
+    public int getTime() {
+        return leftTime;
+    }
 }
 

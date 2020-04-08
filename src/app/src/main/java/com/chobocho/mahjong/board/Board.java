@@ -7,5 +7,5 @@ public interface Board {
     public boolean needShuffle();
     public boolean shuffle();
     public void setStage(int stage);
-    public boolean removeBlock(int x, int y);
+    public int removeBlock(int x, int y);
 }

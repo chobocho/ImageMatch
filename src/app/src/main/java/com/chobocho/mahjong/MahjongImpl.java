@@ -14,7 +14,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
         this.log = log;
         noneState = new NoneState();
         idleState = new IdleState();
-        playState = new PlayState(width, height, blockKind);
+        playState = new PlayState(this, width, height, blockKind);
         pauseState = new PauseState();
         endState = new EndState();
         gameoverState = new GameoverState();
@@ -34,6 +34,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
         return setState(END_STATE);
     }
 
+    @Override
     public boolean gameoverState() {
         return setState(GAMEOVER_STATE);
     }
@@ -55,6 +56,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 } else {
                     playState.initGame(stage + 1);
                 }
+                leftTime = 11;
                 state = idleState;
                 break;
             case PLAY_STATE:
@@ -65,6 +67,9 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 break;
             case END_STATE:
                 state = endState;
+                break;
+            case GAMEOVER_STATE:
+                state = gameoverState;
                 break;
             default:
                 break;

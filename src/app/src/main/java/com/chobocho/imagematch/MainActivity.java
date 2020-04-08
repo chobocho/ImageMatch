@@ -33,4 +33,20 @@ public class MainActivity extends AppCompatActivity {
         boardProfile.setScreenSize(width, height);
         gameView = new MahjongGameView(this, majhong, boardProfile, cmdEngine);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (gameView != null) {
+            gameView.pauseGame();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (gameView != null) {
+            gameView.resumeGame();
+        }
+    }
 }

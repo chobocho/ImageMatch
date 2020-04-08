@@ -54,6 +54,7 @@ public class GameDrawEngineManagerImpl implements DrawEngineManager, GameObserve
                 break;
             case BoardGame.PLAY_STATE:
                 drawEngine = boardDrawEngines[BoardGame.PLAY_STATE];
+                parent.startGame();
                 break;
             case BoardGame.PAUSE_STATE:
                 drawEngine = boardDrawEngines[BoardGame.PAUSE_STATE];

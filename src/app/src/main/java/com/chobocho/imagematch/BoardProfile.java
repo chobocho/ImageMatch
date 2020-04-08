@@ -10,6 +10,7 @@ public class BoardProfile {
     final static public int PAUSE_BUTTON = 5;
     final static public int RESUME_BUTTON = 6;
     final static public int WIN_BUTTON = 7;
+    final static public int TIMER_BAR = 8;
 
 
     public static int screenW = 1080;
@@ -19,6 +20,8 @@ public class BoardProfile {
 
     public static int startX = 0;
     public static int startY = blockSize;
+    public static int endX = 1080;
+    public static int endY = 1820;
 
     static public int buttonW = 400;
     static public int buttonH = 130;
@@ -28,7 +31,7 @@ public class BoardProfile {
     final static public int boardWidth = 8;
     final static public int boardHeight = 12;
 
-    public static int blockKind = 35;
+    public static int blockKind = 43;
 
     public BoardProfile(int w, int h) {
         setScreenSize(w, h);
@@ -44,6 +47,8 @@ public class BoardProfile {
         blockSize = blockSize <= widthBlockSize ? blockSize : widthBlockSize;
         startX = (int)((w - (blockSize * boardWidth))/2);
         startY = blockSize;
+        endX = startX + blockSize * boardWidth;
+        endY = startY + blockSize * boardHeight;
         buttonW = blockSize * 4;
         buttonH = ((int)(blockSize * 1.5));
 
@@ -87,7 +92,14 @@ public class BoardProfile {
             R.drawable.block32,
             R.drawable.block33,
             R.drawable.block34,
-            R.drawable.block35
+            R.drawable.block35,
+            R.drawable.block36,
+            R.drawable.block37,
+            R.drawable.block38,
+            R.drawable.block39,
+            R.drawable.block40,
+            R.drawable.block41,
+            R.drawable.block42
     };
 
     final static public int[] ButtonImageName = {
@@ -98,7 +110,8 @@ public class BoardProfile {
             R.drawable.start,
             R.drawable.pause,
             R.drawable.resume,
-            R.drawable.win
+            R.drawable.win,
+            R.drawable.time
     };
 
 }
