@@ -75,9 +75,10 @@ public class PlayState extends MajhongGameState {
         if (result > 0) {
             game.addTick(result);
             return true;
+        } else {
+            game.tick();
         }
         return false;
-
     }
 
     @Override

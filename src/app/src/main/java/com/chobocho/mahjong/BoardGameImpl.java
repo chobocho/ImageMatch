@@ -52,6 +52,11 @@ abstract public class BoardGameImpl implements BoardGame {
 
     public boolean addTick(int t) {
         leftTime += t;
+
+        if (leftTime < 5) {
+            leftTime = 8;
+        }
+
         if (leftTime > 10) {
             leftTime = 10;
         }

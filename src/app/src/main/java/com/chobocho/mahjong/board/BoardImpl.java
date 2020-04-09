@@ -160,7 +160,7 @@ public class BoardImpl implements Board {
             count += removeBlocks.size();
             removeBlocks.clear();
         }
-        return count/2;
+        return count;
     }
 
     public boolean isClear() {
