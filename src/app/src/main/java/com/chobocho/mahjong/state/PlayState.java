@@ -35,7 +35,7 @@ public class PlayState extends MajhongGameState {
 
 
     public void initGame(int stage) {
-        this.stage = stage;
+        this.stage = stage > 99 ? 99 : stage;
         initBoard();
     }
 

@@ -9,6 +9,7 @@ public interface BoardGame {
     int PAUSE_STATE = 3;
     int END_STATE = 4;
     int GAMEOVER_STATE = 5;
+    int MAX_TIME = 36;
 
     public boolean idle();
 

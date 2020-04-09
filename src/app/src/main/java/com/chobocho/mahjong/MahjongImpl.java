@@ -56,7 +56,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 } else {
                     playState.initGame(stage + 1);
                 }
-                leftTime = 11;
+                leftTime = BoardGame.MAX_TIME + 1;
                 state = idleState;
                 break;
             case PLAY_STATE:

@@ -53,7 +53,7 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
         drawImage(g, buttonImages[boardProfile.TIMER_BAR], startX, startY-imgSize, w*imgSize, imgSize-10, paint);
         paint.setColor(Color.BLACK);
-        int blackWidth = (boardProfile.endX - startX-20) * leftTime / 10;
+        int blackWidth = (boardProfile.endX - startX-20) * leftTime / game.MAX_TIME;
         g.drawRect(startX+10+blackWidth, startY-imgSize+10, boardProfile.endX-10,startY-20, paint);
 
         int[][] board = game.getBoard().getBoard();
