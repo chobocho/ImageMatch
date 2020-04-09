@@ -6,6 +6,11 @@ import com.chobocho.mahjong.command.*;
 
 public class WinPauseCommandFactoryStateImpl extends PauseCommandFactoryStateImpl implements CommandFactoryState {
     final static String TAG = "WinPauseCommandFactoryStateImpl";
+    BoardProfile boardProfile;
+
+    public WinPauseCommandFactoryStateImpl(BoardProfile boardProfile) {
+        this.boardProfile = boardProfile;
+    }
 
     @Override
     public PlayCommand createCommand(int event, int x, int y) {
@@ -36,12 +41,16 @@ public class WinPauseCommandFactoryStateImpl extends PauseCommandFactoryStateImp
     @Override
     public void addButtons() {
         AndroidLog.i(TAG, "addButtons");
-        int screenW = BoardProfile.screenW;
-        int buttonW = BoardProfile.buttonW;
-        int buttonH = BoardProfile.buttonH;
-        int buttonY = BoardProfile.buttonY;
-        buttons.push(new ButtonPosition(PlayCommand.PLAY, (screenW-buttonW)/2, buttonY, (screenW-buttonW)/2+buttonW,buttonY+buttonH));
-        buttons.push(new ButtonPosition(PlayCommand.IDLE, (screenW-buttonW)/2, buttonY+200, (screenW-buttonW)/2+buttonW,buttonY+buttonH+200));
+        int screenW = boardProfile.screenW;
+        int screenH = boardProfile.screenH;
+
+        int startX = boardProfile.buttonX;
+        int startY = boardProfile.buttonY;
+
+        int buttonGap = boardProfile.blockSize * 2;
+
+        buttons.push(new ButtonPosition(PlayCommand.PLAY, startX, startY, startX + boardProfile.buttonW,startY + boardProfile.buttonH));
+        buttons.push(new ButtonPosition(PlayCommand.IDLE, startX, startY+buttonGap*2, startX + boardProfile.buttonW,startY + boardProfile.buttonH+buttonGap*2));
         AndroidLog.i(TAG,buttons.toString());
     }
 }

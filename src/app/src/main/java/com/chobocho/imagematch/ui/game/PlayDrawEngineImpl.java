@@ -16,11 +16,28 @@ import com.chobocho.mahjong.Mahjong;
 public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
     String TAG = getClass().getSimpleName();
 
-    Paint paint = new Paint();
+    Paint paint;
+    Paint mPaint4BigNumber;
+    BoardProfile boardProfile;
+
+    public PlayDrawEngineImpl(BoardProfile boardProfile) {
+        this.boardProfile = boardProfile;
+
+        paint = new Paint();
+
+        mPaint4BigNumber = new Paint();
+        mPaint4BigNumber.setColor(Color.WHITE);
+        mPaint4BigNumber.setStrokeWidth(3);
+        mPaint4BigNumber.setAntiAlias(true);
+        mPaint4BigNumber.setAlpha(50);
+
+    }
+
 
     @Override
     public void onDraw(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
         onDrawCommon(g, game, boardProfile, blockImages, buttonImages);
+        onDrawInfo(g, game, boardProfile, blockImages, buttonImages);
     }
 
     private void onDrawCommon(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
@@ -36,7 +53,7 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
         drawImage(g, buttonImages[boardProfile.TIMER_BAR], startX, startY-imgSize, w*imgSize, imgSize-10, paint);
         paint.setColor(Color.BLACK);
-        int blackWidth = (boardProfile.endX - startX-20) * game.getTime() / 10;
+        int blackWidth = (boardProfile.endX - startX-20) * leftTime / 10;
         g.drawRect(startX+10+blackWidth, startY-imgSize+10, boardProfile.endX-10,startY-20, paint);
 
         int[][] board = game.getBoard().getBoard();
@@ -47,7 +64,28 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
              }
          }
 
-         int pauseStartX = boardProfile.endX - imgSize-20;
-         drawImage(g, buttonImages[boardProfile.PAUSE_BUTTON], pauseStartX, screenH-imgSize-20, imgSize, imgSize, paint);
+         if (leftTime > 0 && leftTime <= 5) {
+             int x = boardProfile.startX + imgSize;
+             int y = boardProfile.startY + imgSize * 2;
+             int numberWidth = (boardProfile.boardWidth - 2) * imgSize;
+             drawImage(g, buttonImages[boardProfile.NUMBER_1 + leftTime - 1], x, y,  numberWidth, numberWidth, mPaint4BigNumber);
+         }
+    }
+
+    private void onDrawInfo(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
+        int screenW = g.getWidth();
+        int screenH = g.getHeight();
+        int imgSize = boardProfile.blockSize;
+
+        int stageX = boardProfile.startX;
+        int stageY = screenH-imgSize-20;
+        int stageNumSize = boardProfile.blockSize;
+
+        drawImage(g, buttonImages[game.getStage() / 10 + BoardProfile.SMALL_NUMBER_0], stageX, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[game.getStage() % 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize, stageY, stageNumSize, stageNumSize, paint);
+
+        int pauseStartX = boardProfile.endX - imgSize-20;
+        drawImage(g, buttonImages[boardProfile.PAUSE_BUTTON], pauseStartX, screenH-imgSize-20, imgSize, imgSize, paint);
+
     }
 }

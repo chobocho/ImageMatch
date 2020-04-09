@@ -19,9 +19,9 @@ public class GameCommandFactory extends CommandFactory {
         idleState = new WinIdleCommandFactoryStateImpl(profile);
         noneState = new WinNoneCommandFactoryStateImpl(profile);
         playState = new WinPlayCommandFactoryStateImpl(profile);
-        pauseState = new WinPauseCommandFactoryStateImpl();
+        pauseState = new WinPauseCommandFactoryStateImpl(profile);
         endState = new WinEndCommandFactoryStateImpl(profile);
-        gameoverState = new WinGameoverCommandFactoryStateImpl();
+        gameoverState = new WinGameoverCommandFactoryStateImpl(profile);
         state = idleState;
 
         game.register(this);

@@ -38,7 +38,7 @@ public class BoardImpl implements Board {
     }
 
     private void initVars() {
-        board = new int[height+1][width+1];
+        board = new int[height + 1][width + 1];
     }
 
     private void initBoard() {
@@ -50,7 +50,7 @@ public class BoardImpl implements Board {
         CLog.i(TAG, "Set Stage " + stage);
         initBoard();
 
-        blockCount += (stage*2);
+        blockCount += (stage * 2);
 
         int blockStart = (int) (Math.random() * 15 - stage);
         int blockTypeRange = (int) (Math.random() * 15) + 8 + stage;
@@ -59,13 +59,13 @@ public class BoardImpl implements Board {
             blockStart = 1;
         }
 
-        if ( blockTypeRange > blockKind) {
+        if (blockTypeRange > blockKind) {
             blockTypeRange = blockKind;
         }
 
         int loopCount = 1000;
 
-        int maxBlockCount =  (int)(width * height * 0.35);
+        int maxBlockCount = (int) (width * height * 0.35);
         stage = stage <= maxBlockCount ? stage : maxBlockCount;
 
         while (stage > 0 && loopCount > 0) {
@@ -80,9 +80,9 @@ public class BoardImpl implements Board {
         CLog.i(TAG, "insertBlock " + blockStart);
         int MAX_LOOPCOUNT = 100;
 
-        int blockType = ((int)(Math.random() * blockKind) % blockTypeRange + blockStart ) % blockKind;
+        int blockType = ((int) (Math.random() * blockKind) % blockTypeRange + blockStart) % blockKind;
 
-        if ( blockType == EMPTY ) {
+        if (blockType == EMPTY) {
             blockType = EMPTY + 1;
         }
 
@@ -91,18 +91,13 @@ public class BoardImpl implements Board {
         int two_x = 0;
         int two_y = 0;
 
-        int end_x = 0;
-        int start_x = 0;
-        int start_y = 0;
-        int end_y = 0;
-        int i, j;
         int loopCount = 0;
 
 
         while (loopCount < MAX_LOOPCOUNT) {
             do {
-                one_x = (int) (Math.random() * (width-3));
-                one_y = (int) (Math.random() * (height-3));
+                one_x = (int) (Math.random() * (width - 3));
+                one_y = (int) (Math.random() * (height - 3));
             } while (board[one_y][one_x] != EMPTY);
 
             do {
@@ -134,8 +129,8 @@ public class BoardImpl implements Board {
     private boolean isClosedBlock(int one_x, int one_y, int two_x, int two_y) {
         return ((two_x - one_x == 1) && (two_y == one_y)) ||
                 ((one_x - two_x == 1) && (two_y == one_y)) ||
-                ((two_x == one_x ) && (two_y - one_y == 1)) ||
-                ((two_x == one_x ) && (one_y - two_y == 1)) ||
+                ((two_x == one_x) && (two_y - one_y == 1)) ||
+                ((two_x == one_x) && (one_y - two_y == 1)) ||
                 ((two_x == one_x) && (two_y == one_y));
     }
 
@@ -143,20 +138,20 @@ public class BoardImpl implements Board {
         return board;
     }
 
-    public int removeBlock(int x, int y){
+    public int removeBlock(int x, int y) {
         CLog.i(TAG, "removeBlock " + x + ", " + y);
 
         LinkedList<Block> removeBlocks = getRemovableBlocks(x, y);
         int count = 0;
 
         if (removeBlocks.size() > 0) {
-            CLog.i(TAG, "removeBlock BlockCount " +blockCount);
+            CLog.i(TAG, "removeBlock BlockCount " + blockCount);
             blockCount -= removeBlocks.size();
             for (Block block : removeBlocks) {
                 board[block.y][block.x] = EMPTY;
             }
-            CLog.i(TAG, "removeBlock BlockCount " +blockCount);
-            CLog.i(TAG, "removeBlock count " +removeBlocks.size());
+            CLog.i(TAG, "removeBlock BlockCount " + blockCount);
+            CLog.i(TAG, "removeBlock count " + removeBlocks.size());
             count += removeBlocks.size();
             removeBlocks.clear();
         }
@@ -176,8 +171,8 @@ public class BoardImpl implements Board {
         int currentCount = blockCount;
         int maxCount = 100;
 
-         while((!isRemovable()) && (maxCount > 0)) {
-            setStage(currentCount/2);
+        while ((!isRemovable()) && (maxCount > 0)) {
+            setStage(currentCount / 2);
             maxCount--;
         }
 
@@ -202,7 +197,7 @@ public class BoardImpl implements Board {
         return false;
     }
 
-    private LinkedList<Block> getRemovableBlocks(int x, int y){
+    private LinkedList<Block> getRemovableBlocks(int x, int y) {
         // CLog.i(TAG, "isRemovable " + x + ", " + y);
         LinkedList<Block> removableBlocks = new LinkedList<>();
 

@@ -24,7 +24,7 @@ abstract public class GameState {
         return false;
     }
 
-    public int getStage() { return 0; }
+    abstract public int getStage();
 
     public Board getBoard() {
         return null;

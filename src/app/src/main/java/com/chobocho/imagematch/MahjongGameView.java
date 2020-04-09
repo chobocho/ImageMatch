@@ -64,7 +64,7 @@ public class MahjongGameView extends View {
             public void handleMessage(Message msg){
                 if (game != null && game.isPlayState()) {
                     Log.i(TAG, "1 seconds");
-                    int gameSpeed = 800; // - (player.getScore() / 10000);
+                    int gameSpeed = 888; // - (player.getScore() / 10000);
                     if (gameHandler.hasMessages(EMPTY_MESSAGE)) {
                         gameHandler.removeMessages(EMPTY_MESSAGE);
                     }

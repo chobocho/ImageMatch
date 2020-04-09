@@ -28,6 +28,6 @@ public class EndDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
         int buttonGap = boardProfile.blockSize*2;
 
-        drawImage(g, buttonImages[BoardProfile.WIN_BUTTON], startX, startY, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.WIN_BUTTON], startX, startY+buttonGap, boardProfile.buttonW, boardProfile.buttonH, paint);
     }
 }

@@ -11,7 +11,22 @@ public class BoardProfile {
     final static public int RESUME_BUTTON = 6;
     final static public int WIN_BUTTON = 7;
     final static public int TIMER_BAR = 8;
-
+    final static public int GAME_OVER = 9;
+    final static public int NUMBER_1 = 10;
+    final static public int NUMBER_2 = 11;
+    final static public int NUMBER_3 = 12;
+    final static public int NUMBER_4 = 13;
+    final static public int NUMBER_5 = 14;
+    final static public int SMALL_NUMBER_0 = 15;
+    final static public int SMALL_NUMBER_1 = 16;
+    final static public int SMALL_NUMBER_2 = 17;
+    final static public int SMALL_NUMBER_3 = 18;
+    final static public int SMALL_NUMBER_4 = 19;
+    final static public int SMALL_NUMBER_5 = 20;
+    final static public int SMALL_NUMBER_6 = 21;
+    final static public int SMALL_NUMBER_7 = 22;
+    final static public int SMALL_NUMBER_8 = 23;
+    final static public int SMALL_NUMBER_9 = 24;
 
     public static int screenW = 1080;
     public static int screenH = 1820;
@@ -111,7 +126,23 @@ public class BoardProfile {
             R.drawable.pause,
             R.drawable.resume,
             R.drawable.win,
-            R.drawable.time
+            R.drawable.time,
+            R.drawable.gameover,
+            R.drawable.n01,
+            R.drawable.n02,
+            R.drawable.n03,
+            R.drawable.n04,
+            R.drawable.n05,
+            R.drawable.sn00,
+            R.drawable.sn01,
+            R.drawable.sn02,
+            R.drawable.sn03,
+            R.drawable.sn04,
+            R.drawable.sn05,
+            R.drawable.sn06,
+            R.drawable.sn07,
+            R.drawable.sn08,
+            R.drawable.sn09,
     };
 
 }

@@ -8,7 +8,7 @@ android {
         applicationId "com.chobocho.ColorMatch"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 7
+        versionCode 8
         versionName "0.1105.TD3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

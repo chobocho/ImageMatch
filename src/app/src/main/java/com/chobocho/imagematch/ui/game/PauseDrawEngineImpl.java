@@ -30,6 +30,6 @@ public class PauseDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
         drawImage(g, buttonImages[BoardProfile.RESUME_BUTTON], startX, startY, boardProfile.buttonW, boardProfile.buttonH, paint);
 
-        drawImage(g, buttonImages[BoardProfile.NEW_GAME_BUTTON], startX, startY+buttonGap, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.NEW_GAME_BUTTON], startX, startY+buttonGap*2, boardProfile.buttonW, boardProfile.buttonH, paint);
     }
 }

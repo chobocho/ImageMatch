@@ -13,7 +13,6 @@ public class PlayState extends MajhongGameState {
     int boardWidth = 8;
     int boardHeigth = 12;
     int blockKind = 35;
-    int stage = 0;
     BoardGame game;
 
     public PlayState(BoardGame game, int width, int height, int blockKind) {

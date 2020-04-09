@@ -33,7 +33,7 @@ public class GameDrawEngineManagerImpl implements DrawEngineManager, GameObserve
         boardDrawEngines = new DrawEngine[BoardGame.GAMEOVER_STATE + 1];
         boardDrawEngines[BoardGame.NONE_STATE] = new NoneDrawEngineImpl();
         boardDrawEngines[BoardGame.IDLE_STATE] = new IdleDrawEngineImpl();
-        boardDrawEngines[BoardGame.PLAY_STATE] = new PlayDrawEngineImpl();
+        boardDrawEngines[BoardGame.PLAY_STATE] = new PlayDrawEngineImpl(this.boardProfile);
         boardDrawEngines[BoardGame.PAUSE_STATE] = new PauseDrawEngineImpl();
         boardDrawEngines[BoardGame.END_STATE] = new EndDrawEngineImpl();
         boardDrawEngines[BoardGame.GAMEOVER_STATE] = new GameoverDrawEngineImpl();

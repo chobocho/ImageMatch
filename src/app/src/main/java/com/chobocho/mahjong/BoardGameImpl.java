@@ -66,5 +66,12 @@ abstract public class BoardGameImpl implements BoardGame {
     public int getTime() {
         return leftTime;
     }
+
+    public int getStage() {
+        if (playState == null) {
+            return 0;
+        }
+        return playState.getStage();
+    }
 }
 

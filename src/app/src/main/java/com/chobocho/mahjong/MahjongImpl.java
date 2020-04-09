@@ -51,7 +51,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 break;
             case IDLE_STATE:
                 int stage = playState.getStage();
-                if (state == pauseState) {
+                if (state == pauseState || state == gameoverState) {
                     playState.initGame(1);
                 } else {
                     playState.initGame(stage + 1);
