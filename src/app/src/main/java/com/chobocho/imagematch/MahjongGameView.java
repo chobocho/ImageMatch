@@ -1,6 +1,7 @@
 package com.chobocho.imagematch;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +16,7 @@ import com.chobocho.imagematch.cmd.CommandFactoryManager;
 import com.chobocho.imagematch.ui.DrawModeManager;
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.Mahjong;
+import com.chobocho.mahjong.Score;
 import com.chobocho.mahjong.command.CommandEngine;
 import com.chobocho.mahjong.command.CommandFactory;
 import com.chobocho.mahjong.command.PlayCommand;
@@ -31,6 +33,7 @@ public class MahjongGameView extends View {
     CommandEngine cmdEngine;
     DrawModeManager drawEngine;
     CommandFactoryManager commandFactory;
+    Score score;
 
     Bitmap[] blockImages;
     Bitmap[] buttonImages;
@@ -39,11 +42,13 @@ public class MahjongGameView extends View {
     private Handler gameHandler;
     private static final int EMPTY_MESSAGE = 0;
 
-    public MahjongGameView(Context context, BoardGame game, BoardProfile boardProfile, CommandEngine cmdEngine) {
+    public MahjongGameView(Context context, BoardGame game, Score score, BoardProfile boardProfile, CommandEngine cmdEngine) {
         super(context);
         this.mContext = context;
+        this.score = score;
         this.boardProfile = boardProfile;
 
+        loadScore();
         loadImage();
 
         this.game = game;
@@ -70,6 +75,7 @@ public class MahjongGameView extends View {
                     }
                     if (!game.tick()) {
                         ((Mahjong)game).gameoverState();
+                        saveScore();
                     } else {
                         gameHandler.sendEmptyMessageDelayed(EMPTY_MESSAGE, gameSpeed);
                     }
@@ -99,11 +105,13 @@ public class MahjongGameView extends View {
         if (gameHandlerThread != null) {
             gameHandlerThread.quit();
         }
-        // saveScore();
+
+        saveScore();
     }
 
     public void resumeGame() {
         Log.d(TAG, "resumeGame");
+        loadScore();
         createGameThread();
     }
 
@@ -165,4 +173,18 @@ public class MahjongGameView extends View {
         update();
     }
 
+    private void saveScore() {
+        SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putInt("highscore", score.getHighScore());
+        edit.commit();
+        Log.i(TAG, "saveScore " +score.getHighScore());
+    }
+
+    public void loadScore() {
+        SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
+        int highscore = pref.getInt("highscore", 0);
+        score.setHighScore(highscore);
+        Log.i(TAG, "highscore " + highscore);
+    }
 }

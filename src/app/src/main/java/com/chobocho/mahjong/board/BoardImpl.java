@@ -1,16 +1,20 @@
 package com.chobocho.mahjong.board;
 
+import com.chobocho.mahjong.state.PlayState;
 import com.chobocho.util.CLog;
 
 import java.util.LinkedList;
 
 public class BoardImpl implements Board {
     final static String TAG = "BoardImpl";
+    final static int SMALL_TIMER = 24;
+    final static int BIG_TIMER = 43;
     protected int width;
     protected int height;
     protected int[][] board;
     protected InitBoardMethod initMethod;
     protected int blockCount = 0;
+    PlayState state;
 
     int blockKind = 35;
     int EMPTY = 0;
@@ -33,6 +37,10 @@ public class BoardImpl implements Board {
         initBoard();
     }
 
+    public void setPlayState(PlayState state) {
+        this.state = state;
+    }
+
     public void SetInitMethod(InitBoardMethod initMethod) {
         this.initMethod = initMethod;
     }
@@ -47,10 +55,9 @@ public class BoardImpl implements Board {
     }
 
     public void setStage(int stage) {
-        CLog.i(TAG, "Set Stage " + stage);
-        initBoard();
+        CLog.i(TAG, "Set Stage " + Integer.toString(stage));
 
-        blockCount += (stage * 2);
+        initBoard();
 
         int blockStart = (int) (Math.random() * 15 - stage);
         int blockTypeRange = (int) (Math.random() * 15) + 8 + stage;
@@ -71,6 +78,7 @@ public class BoardImpl implements Board {
         while (stage > 0 && loopCount > 0) {
             if (insertBlock(blockStart, blockTypeRange)) {
                 stage--;
+                blockCount += 2;
             }
             loopCount--;
         }
@@ -116,7 +124,7 @@ public class BoardImpl implements Board {
         }
 
         if (loopCount >= MAX_LOOPCOUNT) {
-            CLog.i(TAG, "insertBlock error: MAXC COUNT LOOP");
+            CLog.i(TAG, "insertBlock error: MAX COUNT LOOP");
             return false;
         }
 
@@ -148,6 +156,14 @@ public class BoardImpl implements Board {
             CLog.i(TAG, "removeBlock BlockCount " + blockCount);
             blockCount -= removeBlocks.size();
             for (Block block : removeBlocks) {
+                if (state != null) {
+                    if (block.type == SMALL_TIMER) {
+                        state.addTick(15);
+                        CLog.i(TAG, "removeBlock addTick 15");
+                    } else if (block.type == BIG_TIMER) {
+                        CLog.i(TAG, "removeBlock addTick 30");
+                    }
+                }
                 board[block.y][block.x] = EMPTY;
             }
             CLog.i(TAG, "removeBlock BlockCount " + blockCount);

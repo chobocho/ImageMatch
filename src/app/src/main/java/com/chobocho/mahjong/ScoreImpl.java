@@ -17,6 +17,7 @@ public class ScoreImpl implements Score {
     @Override
     public int addScore(int score) {
         this.score += score;
+        updateHighScore();
         return this.score;
     }
 

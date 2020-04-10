@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         int height = size.y;
         boardProfile = new BoardProfile(width, height);
         boardProfile.setScreenSize(width, height);
-        gameView = new MahjongGameView(this, majhong, boardProfile, cmdEngine);
+        gameView = new MahjongGameView(this, majhong, score, boardProfile, cmdEngine);
     }
 
     @Override

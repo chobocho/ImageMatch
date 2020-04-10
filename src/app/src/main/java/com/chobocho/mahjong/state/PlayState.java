@@ -34,11 +34,15 @@ public class PlayState extends MajhongGameState {
 
     private void initVars() {
         board = new BoardImpl (boardWidth, boardHeigth, blockKind);
+        board.setPlayState(this);
     }
 
 
     public void initGame(int stage) {
         this.stage = stage > 99 ? 99 : stage;
+        if (stage == 1) {
+            score.init();
+        }
         initBoard();
     }
 
@@ -92,4 +96,5 @@ public class PlayState extends MajhongGameState {
 
     @Override
     public int getStage() { return stage; }
+
 }

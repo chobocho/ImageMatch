@@ -11,8 +11,8 @@ public class TestInitBoardMethodImpl implements InitBoardMethod {
             }
         }
 
-        board[0][0] = 1;
-        board[0][3] = 1;
+        board[0][0] = 24;
+        board[0][3] = 24;
 
         return 2;
     }

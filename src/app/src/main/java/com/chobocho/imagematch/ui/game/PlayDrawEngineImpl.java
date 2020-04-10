@@ -39,6 +39,7 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         onDrawCommon(g, game, boardProfile, blockImages, buttonImages);
         onDrawInfo(g, game, boardProfile, blockImages, buttonImages);
         onDrawScore(g, game, boardProfile, blockImages, buttonImages);
+        onDrawHighScore(g, game, boardProfile, blockImages, buttonImages);
     }
 
     private void onDrawCommon(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
@@ -98,6 +99,22 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int gameScore = game.getScore();
         for (int i = 6; i >= 0; --i) {
             drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
+            AndroidLog.i(TAG, "Score: " + gameScore + " " + gameScore/10);
+            gameScore /= 10;
+        }
+    }
+
+    private void onDrawHighScore(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
+        int imgSize = boardProfile.blockSize;
+        int stageNumSize = boardProfile.blockSize / 2;
+        int startY = boardProfile.startY + boardProfile.boardHeight * imgSize + (imgSize - stageNumSize)/2;
+        int startX = boardProfile.startX+20;
+
+        drawImage(g, buttonImages[boardProfile.HIGH_SCORE_BUTTON], startX, startY, imgSize*2, stageNumSize, paint);
+
+        int gameScore = game.getHighScore();
+        for (int i = 6; i >= 0; --i) {
+            drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], imgSize * 2 + startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
             AndroidLog.i(TAG, "Score: " + gameScore + " " + gameScore/10);
             gameScore /= 10;
         }

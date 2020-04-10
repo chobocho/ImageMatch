@@ -27,6 +27,7 @@ public class BoardProfile {
     final static public int SMALL_NUMBER_7 = 22;
     final static public int SMALL_NUMBER_8 = 23;
     final static public int SMALL_NUMBER_9 = 24;
+    final static public int HIGH_SCORE_BUTTON = 25;
 
     public static int screenW = 1080;
     public static int screenH = 1820;
@@ -114,7 +115,8 @@ public class BoardProfile {
             R.drawable.block39,
             R.drawable.block40,
             R.drawable.block41,
-            R.drawable.block42
+            R.drawable.block42,
+            R.drawable.block43
     };
 
     final static public int[] ButtonImageName = {
@@ -143,6 +145,7 @@ public class BoardProfile {
             R.drawable.sn07,
             R.drawable.sn08,
             R.drawable.sn09,
+            R.drawable.highscore
     };
 
 }

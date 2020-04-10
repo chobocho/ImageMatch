@@ -14,7 +14,6 @@ public class InitBoardMethodImpl implements InitBoardMethod {
                 board[i][j] = 0;
             }
         }
-
-       return 0;
+        return 0;
     }
 }
