@@ -38,6 +38,7 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
     public void onDraw(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
         onDrawCommon(g, game, boardProfile, blockImages, buttonImages);
         onDrawInfo(g, game, boardProfile, blockImages, buttonImages);
+        onDrawScore(g, game, boardProfile, blockImages, buttonImages);
     }
 
     private void onDrawCommon(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
@@ -86,6 +87,19 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
         int pauseStartX = boardProfile.endX - imgSize-20;
         drawImage(g, buttonImages[boardProfile.PAUSE_BUTTON], pauseStartX, screenH-imgSize-20, imgSize, imgSize, paint);
+    }
 
+    private void onDrawScore(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
+        int imgSize = boardProfile.blockSize;
+        int stageNumSize = boardProfile.blockSize / 2;
+        int startY = boardProfile.startY-imgSize + (imgSize - stageNumSize)/2;
+        int startX = boardProfile.startX+stageNumSize;
+
+        int gameScore = game.getScore();
+        for (int i = 6; i >= 0; --i) {
+            drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
+            AndroidLog.i(TAG, "Score: " + gameScore + " " + gameScore/10);
+            gameScore /= 10;
+        }
     }
 }

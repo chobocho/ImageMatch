@@ -8,11 +8,13 @@ import android.view.Display;
 
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.MahjongImpl;
+import com.chobocho.mahjong.Score;
 import com.chobocho.mahjong.command.CommandEngine;
 
 public class MainActivity extends AppCompatActivity {
     BoardProfile boardProfile;
-    BoardGame majhong = new MahjongImpl(new AndroidLog(),boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind);
+    Score score = new MajhongScore(this);
+    BoardGame majhong = new MahjongImpl(new AndroidLog(), score, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind);
     CommandEngine cmdEngine = new CommandEngine(majhong);
     MahjongGameView gameView;
 

@@ -15,6 +15,7 @@ abstract public class BoardGameImpl implements BoardGame {
     protected GameoverState gameoverState;
     protected ArrayList<GameObserver> observers = new ArrayList<>();
     protected int leftTime;
+    protected Score score;
 
     abstract public boolean idle();
 
@@ -73,5 +74,13 @@ abstract public class BoardGameImpl implements BoardGame {
         }
         return playState.getStage();
     }
+
+    public int getScore() {
+        return score.getScore();
+    }
+    public int getHighScore() {
+        return score.getHighScore();
+    }
+
 }
 

@@ -10,11 +10,12 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
 
     CLog log;
 
-    public MahjongImpl(CLog log, int width, int height, int blockKind) {
+    public MahjongImpl(CLog log, Score score, int width, int height, int blockKind) {
         this.log = log;
+        this.score = score;
         noneState = new NoneState();
         idleState = new IdleState();
-        playState = new PlayState(this, width, height, blockKind);
+        playState = new PlayState(this, this.score, width, height, blockKind);
         pauseState = new PauseState();
         endState = new EndState();
         gameoverState = new GameoverState();

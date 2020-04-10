@@ -1,6 +1,7 @@
 package com.chobocho.mahjong.state;
 
 import com.chobocho.mahjong.BoardGame;
+import com.chobocho.mahjong.Score;
 import com.chobocho.mahjong.board.Board;
 import com.chobocho.mahjong.board.BoardImpl;
 import com.chobocho.util.CLog;
@@ -14,12 +15,14 @@ public class PlayState extends MajhongGameState {
     int boardHeigth = 12;
     int blockKind = 35;
     BoardGame game;
+    Score score;
 
-    public PlayState(BoardGame game, int width, int height, int blockKind) {
+    public PlayState(BoardGame game, Score score, int width, int height, int blockKind) {
         this.boardWidth = width;
         this.boardHeigth = height;
         this.blockKind = blockKind;
         this.game = game;
+        this.score = score;
 
         initVars();
         initGame(stage);
@@ -73,6 +76,8 @@ public class PlayState extends MajhongGameState {
 
         if (result > 0) {
             game.addTick(result);
+            int updateScore = score.calculatorScore(result, stage, game.getTime());
+            score.addScore(updateScore);
             return true;
         } else {
             game.tick();

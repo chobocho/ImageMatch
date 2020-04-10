@@ -33,4 +33,6 @@ public interface BoardGame {
     public boolean addTick(int t);
     public int getTime();
     public int getStage();
+    public int getScore();
+    public int getHighScore();
 }
