@@ -25,6 +25,7 @@ abstract public class BoardGameImpl implements BoardGame {
 
     abstract public boolean winState();
 
+    abstract public boolean tryAgin();
 
     abstract public boolean isPlayState();
 

@@ -162,6 +162,7 @@ public class BoardImpl implements Board {
                         CLog.i(TAG, "removeBlock addTick 15");
                     } else if (block.type == BIG_TIMER) {
                         CLog.i(TAG, "removeBlock addTick 30");
+                        state.addTick(30);
                     }
                 }
                 board[block.y][block.x] = EMPTY;

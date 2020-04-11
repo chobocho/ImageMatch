@@ -21,6 +21,8 @@ public interface BoardGame {
 
     public boolean gameoverState();
 
+    public boolean tryAgin();
+
     public void register(GameObserver observer);
 
     public boolean isPlayState();

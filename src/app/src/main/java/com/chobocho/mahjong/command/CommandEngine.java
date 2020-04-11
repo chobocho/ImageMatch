@@ -31,6 +31,7 @@ public class CommandEngine {
         functionMap.put(PlayCommand.IDLE, new IdleFunction());
         functionMap.put(PlayCommand.WIN, new WinFunction());
         functionMap.put(PlayCommand.REMOVE, new RemoveFunction());
+        functionMap.put(PlayCommand.TRYAGAIN, new TryagainFunction());
     }
 
     public boolean runCommand (PlayCommand command) {

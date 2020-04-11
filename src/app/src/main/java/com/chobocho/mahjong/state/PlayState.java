@@ -68,6 +68,12 @@ public class PlayState extends MajhongGameState {
         StringBuffer result = new StringBuffer();
         return result.toString();
     }
+
+    @Override
+    public void addTick(int tick) {
+        game.addTick(tick);
+    }
+
     @Override
     public boolean removeBlock(int x, int y) {
         CLog.i(TAG, "removeBlock");

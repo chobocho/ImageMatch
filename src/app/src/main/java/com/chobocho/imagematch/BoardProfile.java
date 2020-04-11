@@ -28,6 +28,7 @@ public class BoardProfile {
     final static public int SMALL_NUMBER_8 = 23;
     final static public int SMALL_NUMBER_9 = 24;
     final static public int HIGH_SCORE_BUTTON = 25;
+    final static public int TRY_AGAIN_BUTTON = 26;
 
     public static int screenW = 1080;
     public static int screenH = 1820;
@@ -145,7 +146,8 @@ public class BoardProfile {
             R.drawable.sn07,
             R.drawable.sn08,
             R.drawable.sn09,
-            R.drawable.highscore
+            R.drawable.highscore,
+            R.drawable.tryagain
     };
 
 }

@@ -29,6 +29,7 @@ public class GameoverDrawEngineImpl extends DrawEngineImpl implements DrawEngine
         int buttonGap = boardProfile.blockSize*2;
 
         drawImage(g, buttonImages[BoardProfile.GAME_OVER], startX, startY, boardProfile.buttonW, boardProfile.buttonH, paint);
-        drawImage(g, buttonImages[BoardProfile.NEW_GAME_BUTTON], startX, startY+buttonGap*2, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.TRY_AGAIN_BUTTON], startX, startY+buttonGap, boardProfile.buttonW, boardProfile.buttonH, paint);
+        drawImage(g, buttonImages[BoardProfile.NEW_GAME_BUTTON], startX, startY+buttonGap*3, boardProfile.buttonW, boardProfile.buttonH, paint);
     }
 }

@@ -99,7 +99,6 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int gameScore = game.getScore();
         for (int i = 6; i >= 0; --i) {
             drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
-            AndroidLog.i(TAG, "Score: " + gameScore + " " + gameScore/10);
             gameScore /= 10;
         }
     }
@@ -115,7 +114,6 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int gameScore = game.getHighScore();
         for (int i = 6; i >= 0; --i) {
             drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], imgSize * 2 + startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
-            AndroidLog.i(TAG, "Score: " + gameScore + " " + gameScore/10);
             gameScore /= 10;
         }
     }
