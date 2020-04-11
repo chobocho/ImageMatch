@@ -8,5 +8,13 @@ public interface Score {
     public void updateHighScore();
     public int getScore();
     public int getHighScore();
-    public int calculatorScore(int removedBlockCount, int stage, int time);
+    public int calculatorScore(int removedBlockCount, int time);
+    public void backup();
+    public void revert();
+    public int getStage();
+    public void setStage(int stage);
+    public void stageUp();
+    public int getHint();
+    public int setHint(int hint);
+    public int addHint(int hint);
 }

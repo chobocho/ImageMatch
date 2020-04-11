@@ -18,6 +18,7 @@ abstract public class BoardGameImpl implements BoardGame {
     protected Score score;
 
     abstract public boolean idle();
+    abstract public boolean newGame();
 
     abstract public boolean play();
 
@@ -27,11 +28,20 @@ abstract public class BoardGameImpl implements BoardGame {
 
     abstract public boolean tryAgin();
 
+
+    abstract public boolean isIdleState();
     abstract public boolean isPlayState();
+    abstract public boolean isPauseState();
+    abstract public boolean isEndState();
 
     abstract public boolean isFinishGame();
 
     abstract public Board getBoard();
+
+    @Override
+    public int getState() {
+        return state.getState();
+    }
 
     public void register(GameObserver observer) {
         this.observers.add(observer);
@@ -43,6 +53,8 @@ abstract public class BoardGameImpl implements BoardGame {
             observer.updateState(state.getState());
         }
     }
+
+    abstract public boolean resumeGame();
 
     public boolean tick() {
         leftTime--;
@@ -69,12 +81,7 @@ abstract public class BoardGameImpl implements BoardGame {
         return leftTime;
     }
 
-    public int getStage() {
-        if (playState == null) {
-            return 0;
-        }
-        return playState.getStage();
-    }
+    abstract public int getStage();
 
     public int getScore() {
         return score.getScore();
@@ -82,6 +89,11 @@ abstract public class BoardGameImpl implements BoardGame {
     public int getHighScore() {
         return score.getHighScore();
     }
+    public boolean updateHint() { return state.updateHint(); }
 
+    @Override
+    public int getHint() {
+        return score.getHint();
+    }
 }
 

@@ -29,7 +29,11 @@ public class PauseDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int buttonGap = boardProfile.blockSize*2;
 
         drawImage(g, buttonImages[BoardProfile.RESUME_BUTTON], startX, startY, boardProfile.buttonW, boardProfile.buttonH, paint);
-
         drawImage(g, buttonImages[BoardProfile.NEW_GAME_BUTTON], startX, startY+buttonGap*2, boardProfile.buttonW, boardProfile.buttonH, paint);
+
+        paint.setTextSize(30);
+        paint.setColor(Color.CYAN);
+        int fontGap = boardProfile.blockSize / 2;
+        g.drawText(boardProfile.versionName, boardProfile.endX - fontGap*4, boardProfile.endY + fontGap, paint);
     }
 }

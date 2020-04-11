@@ -61,11 +61,4 @@ public class PlayStateTest {
     @Test
     public void getBoard() {
     }
-
-    @Test
-    public void getStage() {
-        int defaultStage = 0;
-        assertEquals(playState.getStage(), defaultStage);
-    }
-
 }

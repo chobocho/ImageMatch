@@ -32,6 +32,9 @@ public class CommandEngine {
         functionMap.put(PlayCommand.WIN, new WinFunction());
         functionMap.put(PlayCommand.REMOVE, new RemoveFunction());
         functionMap.put(PlayCommand.TRYAGAIN, new TryagainFunction());
+        functionMap.put(PlayCommand.RESUME_GAME, new ResumeGameFunction());
+        functionMap.put(PlayCommand.NEW_GAME, new NewGameFunction());
+        functionMap.put(PlayCommand.HINT, new HintFunction());
     }
 
     public boolean runCommand (PlayCommand command) {
@@ -44,11 +47,10 @@ public class CommandEngine {
             return false;
         }
 
-
         CLog.i(TAG, command.toString());
-        if (command.command.equals(PlayCommand.NEW_GAME)) {
+
+        if (command.command.equals(PlayCommand.NEW_GAME) || command.command.equals(PlayCommand.RESUME_GAME)) {
             notify(GAME_MODE);
-            return true;
         }
 
         isRunning = true;

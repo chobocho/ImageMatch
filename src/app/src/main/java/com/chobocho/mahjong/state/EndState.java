@@ -8,6 +8,11 @@ public class EndState extends MajhongGameState {
 
     }
 
+    @Override
+    public boolean isEndState() {
+        return true;
+    }
+
     public int getState() { return BoardGame.END_STATE; }
 
 }

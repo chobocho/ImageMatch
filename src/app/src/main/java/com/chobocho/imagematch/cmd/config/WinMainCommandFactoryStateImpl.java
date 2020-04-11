@@ -49,6 +49,7 @@ public class WinMainCommandFactoryStateImpl extends PlainCommandFactoryStateImpl
         int buttonGap = boardProfile.blockSize*2;
 
         buttons.push(new ButtonPosition(PlayCommand.NEW_GAME, startX, startY, startX + boardProfile.buttonW,startY + boardProfile.buttonH));
+        buttons.push(new ButtonPosition(PlayCommand.RESUME_GAME, startX, startY+buttonGap, startX + boardProfile.buttonW,startY + boardProfile.buttonH+buttonGap));
         AndroidLog.i(TAG,buttons.toString());
     }
 }

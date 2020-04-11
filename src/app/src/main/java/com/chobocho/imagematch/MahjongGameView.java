@@ -68,7 +68,7 @@ public class MahjongGameView extends View {
             @Override
             public void handleMessage(Message msg){
                 if (game != null && game.isPlayState()) {
-                    int gameSpeed = 1000 - game.getStage() * 10;
+                    int gameSpeed = 1000 - game.getStage() * 5;
                     Log.i(TAG, "GameSpeed: " + gameSpeed);
                     if (gameHandler.hasMessages(EMPTY_MESSAGE)) {
                         gameHandler.removeMessages(EMPTY_MESSAGE);
@@ -177,6 +177,21 @@ public class MahjongGameView extends View {
         SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
         SharedPreferences.Editor edit = pref.edit();
         edit.putInt("highscore", score.getHighScore());
+
+        if (game.isPlayState()) {
+            game.pause();
+        }
+
+        edit.putInt("gameState", game.getState());
+        if (game.isIdleState() || game.isPauseState() || game.isEndState()) {
+            edit.putInt("score", score.getScore());
+
+            int addState = game.isEndState() ? 1 : 0;
+            edit.putInt("stage", score.getStage() + addState);
+
+            edit.putInt("hint", score.getHint());
+        }
+
         edit.commit();
         Log.i(TAG, "saveScore " +score.getHighScore());
     }
@@ -186,5 +201,17 @@ public class MahjongGameView extends View {
         int highscore = pref.getInt("highscore", 0);
         score.setHighScore(highscore);
         Log.i(TAG, "highscore " + highscore);
+
+        int gameState = pref.getInt("gameState", 0);
+        if (gameState == BoardGame.IDLE_STATE || gameState == BoardGame.PAUSE_STATE || gameState == BoardGame.END_STATE) {
+            int gameScore = pref.getInt("score", 0);
+            int stage = pref.getInt("stage", 0);
+            int hint = pref.getInt("hint", 0);
+            score.setScore(gameScore);
+            score.setStage(stage);
+            score.setHint(hint);
+            Log.i(TAG, "load score");
+        }
+
     }
 }

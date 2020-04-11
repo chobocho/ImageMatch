@@ -11,6 +11,7 @@ import com.chobocho.imagematch.ui.DrawEngine;
 import com.chobocho.imagematch.ui.DrawEngineImpl;
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.Mahjong;
+import com.chobocho.mahjong.board.Block;
 
 
 public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
@@ -30,7 +31,6 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         mPaint4BigNumber.setStrokeWidth(3);
         mPaint4BigNumber.setAntiAlias(true);
         mPaint4BigNumber.setAlpha(50);
-
     }
 
 
@@ -66,6 +66,11 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
              }
          }
 
+         Block hint = game.getBoard().getHint();
+         if (hint != null) {
+             drawImage(g, blockImages[BoardProfile.HINT], startX + hint.x * imgSize, startY + hint.y * imgSize, imgSize, imgSize, paint);
+         }
+
          if (leftTime > 0 && leftTime <= 5) {
              int x = boardProfile.startX + imgSize;
              int y = boardProfile.startY + imgSize * 2;
@@ -88,6 +93,10 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
 
         int pauseStartX = boardProfile.endX - imgSize-20;
         drawImage(g, buttonImages[boardProfile.PAUSE_BUTTON], pauseStartX, screenH-imgSize-20, imgSize, imgSize, paint);
+
+        int hintStartX = pauseStartX - imgSize * 2;
+        drawImage(g, buttonImages[boardProfile.HINT_BUTTON], hintStartX, screenH-imgSize-20, imgSize, imgSize, paint);
+        drawImage(g, buttonImages[game.getHint() % 10 + BoardProfile.SMALL_NUMBER_0], hintStartX+imgSize, screenH-imgSize-20, imgSize, imgSize, paint);
     }
 
     private void onDrawScore(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {

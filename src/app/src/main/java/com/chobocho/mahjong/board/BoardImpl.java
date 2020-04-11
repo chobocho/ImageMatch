@@ -1,20 +1,24 @@
 package com.chobocho.mahjong.board;
 
+import com.chobocho.imagematch.BoardProfile;
 import com.chobocho.mahjong.state.PlayState;
 import com.chobocho.util.CLog;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class BoardImpl implements Board {
     final static String TAG = "BoardImpl";
     final static int SMALL_TIMER = 24;
     final static int BIG_TIMER = 43;
+    final static int HINT = 15;
     protected int width;
     protected int height;
     protected int[][] board;
     protected InitBoardMethod initMethod;
     protected int blockCount = 0;
     PlayState state;
+    List<Block> hintBlocks;
 
     int blockKind = 35;
     int EMPTY = 0;
@@ -47,6 +51,7 @@ public class BoardImpl implements Board {
 
     private void initVars() {
         board = new int[height + 1][width + 1];
+        hintBlocks = new LinkedList<>();
     }
 
     private void initBoard() {
@@ -58,6 +63,7 @@ public class BoardImpl implements Board {
         CLog.i(TAG, "Set Stage " + Integer.toString(stage));
 
         initBoard();
+        hintBlocks.clear();
 
         int blockStart = (int) (Math.random() * 15 - stage);
         int blockTypeRange = (int) (Math.random() * 15) + 8 + stage;
@@ -86,7 +92,6 @@ public class BoardImpl implements Board {
 
     private boolean insertBlock(int blockStart, int blockTypeRange) {
         CLog.i(TAG, "insertBlock " + blockStart);
-        int MAX_LOOPCOUNT = 100;
 
         int blockType = ((int) (Math.random() * blockKind) % blockTypeRange + blockStart) % blockKind;
 
@@ -94,13 +99,18 @@ public class BoardImpl implements Board {
             blockType = EMPTY + 1;
         }
 
+        return insertBlock(blockType);
+    }
+
+    private boolean insertBlock(int blockType) {
+        int MAX_LOOPCOUNT = 100;
+
         int one_x = 0;
         int one_y = 0;
         int two_x = 0;
         int two_y = 0;
 
         int loopCount = 0;
-
 
         while (loopCount < MAX_LOOPCOUNT) {
             do {
@@ -163,20 +173,72 @@ public class BoardImpl implements Board {
                     } else if (block.type == BIG_TIMER) {
                         CLog.i(TAG, "removeBlock addTick 30");
                         state.addTick(30);
+                    } else if (block.type == HINT) {
+                        state.addHint(1);
+                        CLog.i(TAG, "removeBlock add Hint 1");
                     }
                 }
                 board[block.y][block.x] = EMPTY;
+
+                if (!hintBlocks.isEmpty()) {
+                    for (Block hint : hintBlocks) {
+                        if (block.x == hint.x && block.y == hint.y) {
+                            hintBlocks.clear();
+                            CLog.i(TAG, "It is hint block");
+                        }
+                    }
+                }
             }
             CLog.i(TAG, "removeBlock BlockCount " + blockCount);
             CLog.i(TAG, "removeBlock count " + removeBlocks.size());
             count += removeBlocks.size();
             removeBlocks.clear();
+
+            if (!hintBlocks.isEmpty()) {
+                Block hint = hintBlocks.get(0);
+                if (hint.x == x && hint.y == y) {
+                    hintBlocks.clear();
+                }
+            }
         }
         return count;
     }
 
     public boolean isClear() {
         return blockCount == 0;
+    }
+
+    @Override
+    public Block getHint() {
+        if (hintBlocks.isEmpty()) {
+            return null;
+        }
+        return hintBlocks.get(0);
+    }
+
+    public boolean updateHint() {
+        CLog.i(TAG, "updateHint()");
+
+        boolean alreayHasHint = !hintBlocks.isEmpty();
+        if (alreayHasHint) {
+            return false;
+        }
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                LinkedList<Block> blocks = getRemovableBlocks(j, i);
+                if (blocks.size() > 0) {
+                    for (Block block : blocks) {
+                        hintBlocks.add(new Block(block));
+                    }
+                    hintBlocks.add(0, new Block(j, i));
+                    CLog.i(TAG, "X: " + j + " , y: " + i);
+
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean needShuffle() {
@@ -190,6 +252,9 @@ public class BoardImpl implements Board {
 
         while ((!isRemovable()) && (maxCount > 0)) {
             setStage(currentCount / 2);
+            if (currentCount > 10) {
+                addTimeIcon();
+            }
             maxCount--;
         }
 
@@ -199,6 +264,12 @@ public class BoardImpl implements Board {
         }
 
         return true;
+    }
+
+    private void addTimeIcon() {
+        if (insertBlock(SMALL_TIMER)) {
+            blockCount += 2;
+        }
     }
 
     public boolean isRemovable() {
@@ -301,7 +372,6 @@ public class BoardImpl implements Board {
                 west.type = EMPTY;
             }
         }
-
 
         return removableBlocks;
     }

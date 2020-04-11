@@ -7,5 +7,10 @@ public class IdleState extends MajhongGameState {
     public IdleState() {
     }
 
+    @Override
+    public boolean isIdleState() {
+        return true;
+    }
+
     public int getState() { return BoardGame.IDLE_STATE; }
 }

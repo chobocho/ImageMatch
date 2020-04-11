@@ -2,8 +2,11 @@ package com.chobocho.imagematch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 
 import com.chobocho.mahjong.BoardGame;
@@ -12,15 +15,18 @@ import com.chobocho.mahjong.Score;
 import com.chobocho.mahjong.command.CommandEngine;
 
 public class MainActivity extends AppCompatActivity {
+    final String TAG = "MainActivity";
     BoardProfile boardProfile;
-    Score score = new MajhongScore(this);
-    BoardGame majhong = new MahjongImpl(new AndroidLog(), score, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind);
-    CommandEngine cmdEngine = new CommandEngine(majhong);
+    Score score;
+    BoardGame majhong;
+    CommandEngine cmdEngine;
     MahjongGameView gameView;
+    String versionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        versionName = getVersionName();
         init();
         setContentView(gameView);
     }
@@ -31,9 +37,25 @@ public class MainActivity extends AppCompatActivity {
         ((Display) display).getSize(size);
         int width = size.x;
         int height = size.y;
-        boardProfile = new BoardProfile(width, height);
+        boardProfile = new BoardProfile(versionName, width, height);
         boardProfile.setScreenSize(width, height);
+        score = new MajhongScore(this);
+        majhong = new MahjongImpl(new AndroidLog(), score, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind+1);
+        cmdEngine = new CommandEngine(majhong);
         gameView = new MahjongGameView(this, majhong, score, boardProfile, cmdEngine);
+    }
+
+    private String getVersionName() {
+        try {
+            PackageInfo pkgInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pkgInfo.versionName;
+            Log.i(TAG, "Version Name : "+ version);
+            return version;
+        } catch(PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.i(TAG, e.toString());
+        }
+        return "";
     }
 
     @Override

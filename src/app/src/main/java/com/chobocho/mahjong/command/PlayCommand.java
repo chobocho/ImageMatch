@@ -8,7 +8,9 @@ public class PlayCommand {
     public static final String WIN = "win";
     public static final String REMOVE = "remove";
     public static final String NEW_GAME = "new_game";
+    public static final String RESUME_GAME = "resume_game";
     public static final String TRYAGAIN = "tryagain";
+    public static final String HINT = "hint";
 
     public String command;
     public int x1;

@@ -46,6 +46,20 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
     }
 
     @Override
+    public boolean newGame() {
+        tryAgain = false;
+        idle();
+        score.setStage(1);
+        return true;
+    }
+
+    @Override
+    public boolean resumeGame() {
+        tryAgain = true;
+        return idle();
+    }
+
+    @Override
     public boolean tryAgin() {
         tryAgain = true;
         return setState(IDLE_STATE);
@@ -58,13 +72,18 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 state = noneState;
                 break;
             case IDLE_STATE:
-                int stage = playState.getStage();
                 if (tryAgain) {
-                    playState.initGame(stage);
+                    score.revert();
+                    log.i(TAG, "IDLE_STATE try again " + score.getStage());
+                    playState.initGame();
                 } else if (state == pauseState || state == gameoverState) {
-                    playState.initGame(1);
+                    score.setStage(1);
+                    log.i(TAG, "IDLE_STATE GameeOver " + score.getStage());
+                    playState.initGame();
                 } else {
-                    playState.initGame(stage + 1);
+                    score.stageUp();
+                    log.i(TAG, "IDLE_STATE New game " + score.getStage());
+                    playState.initGame();
                 }
                 tryAgain = false;
                 leftTime = BoardGame.MAX_TIME + 1;
@@ -89,8 +108,23 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
         return true;
     }
 
+    @Override
+    public boolean isIdleState() {
+        return state.isIdleState();
+    }
+
     public boolean isPlayState() {
         return state.isPlayState();
+    }
+
+    @Override
+    public boolean isPauseState() {
+        return state.isPauseState();
+    }
+
+    @Override
+    public boolean isEndState() {
+        return state.isEndState();
     }
 
     public boolean isFinishGame() {
@@ -108,5 +142,10 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
     @Override
     public Board getBoard() {
         return state.getBoard();
+    }
+
+    @Override
+    public int getStage() {
+        return score.getStage();
     }
 }

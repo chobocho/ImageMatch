@@ -51,7 +51,7 @@ public class WinGameoverCommandFactoryStateImpl extends GameoverCommandFactorySt
         buttons.push(new ButtonPosition(PlayCommand.IDLE, startX, startY, startX+buttonW,startY+buttonH));
         int buttonGap = boardProfile.blockSize*2;
         buttons.push(new ButtonPosition(PlayCommand.TRYAGAIN, startX, startY+buttonGap, startX+buttonW, startY+buttonH+buttonGap*2));
-        buttons.push(new ButtonPosition(PlayCommand.IDLE, startX, startY+buttonGap*3, startX+buttonW, startY+buttonH+buttonGap*2));
+        buttons.push(new ButtonPosition(PlayCommand.IDLE, startX, startY+buttonGap*3, startX+buttonW, startY+buttonH+buttonGap*4));
         AndroidLog.i(TAG,buttons.toString());
     }
 }

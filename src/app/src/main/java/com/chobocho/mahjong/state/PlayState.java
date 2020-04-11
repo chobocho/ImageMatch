@@ -25,7 +25,7 @@ public class PlayState extends MajhongGameState {
         this.score = score;
 
         initVars();
-        initGame(stage);
+        initGame();
     }
 
     public void setBoard(Board board) {
@@ -38,16 +38,12 @@ public class PlayState extends MajhongGameState {
     }
 
 
-    public void initGame(int stage) {
-        this.stage = stage > 99 ? 99 : stage;
-        if (stage == 1) {
-            score.init();
-        }
+    public void initGame() {
         initBoard();
     }
 
     private void initBoard() {
-        board.setStage(stage);
+        board.setStage(score.getStage());
     }
 
     public int getState() {
@@ -86,7 +82,7 @@ public class PlayState extends MajhongGameState {
 
         if (result > 0) {
             game.addTick(result);
-            int updateScore = score.calculatorScore(result, stage, game.getTime());
+            int updateScore = score.calculatorScore(result, game.getTime());
             score.addScore(updateScore);
             return true;
         } else {
@@ -101,6 +97,19 @@ public class PlayState extends MajhongGameState {
     }
 
     @Override
-    public int getStage() { return stage; }
+    public boolean updateHint() {
+        if (score.getHint() < 1) {
+            return false;
+        }
+        boolean result = board.updateHint();
+        if (result) {
+            score.addHint(-1);
+        }
+        return result;
+    }
 
+    @Override
+    public void addHint(int hint) {
+        score.addHint(hint);
+    }
 }

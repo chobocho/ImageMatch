@@ -13,7 +13,7 @@ public class MajhongScore extends ScoreImpl implements Score {
     }
 
     @Override
-    public int calculatorScore(int removedBlockCount, int stage, int time) {
+    public int calculatorScore(int removedBlockCount, int time) {
         int updateScore =  stage * removedBlockCount * removedBlockCount + (time * time);
         return updateScore > 100 ? updateScore / 10 : updateScore;
     }

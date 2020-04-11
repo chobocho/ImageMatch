@@ -16,6 +16,9 @@ abstract public class GameState {
         return false;
     }
 
+    public boolean isEndState() {
+        return false;
+    }
     public int getState() {
         return BoardGame.NONE_STATE;
     }
@@ -24,10 +27,9 @@ abstract public class GameState {
         return false;
     }
 
-    abstract public int getStage();
-
     public Board getBoard() {
         return null;
     }
-
+    abstract public boolean updateHint();
+    abstract public void addHint(int hint);
 }

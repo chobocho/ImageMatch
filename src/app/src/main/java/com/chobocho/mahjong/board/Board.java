@@ -11,4 +11,6 @@ public interface Board {
     public void setStage(int stage);
     public int removeBlock(int x, int y);
     public void setPlayState(PlayState state);
+    public boolean updateHint();
+    public Block getHint();
 }

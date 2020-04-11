@@ -12,22 +12,21 @@ public interface BoardGame {
     int MAX_TIME = 36;
 
     public boolean idle();
-
+    public boolean newGame();
     public boolean play();
-
     public boolean pause();
-
     public boolean winState();
-
     public boolean gameoverState();
-
     public boolean tryAgin();
 
     public void register(GameObserver observer);
 
+    public boolean isIdleState();
     public boolean isPlayState();
-
+    public boolean isPauseState();
+    public boolean isEndState();
     public boolean isFinishGame();
+    public int getState();
 
     public Board getBoard();
 
@@ -37,4 +36,8 @@ public interface BoardGame {
     public int getStage();
     public int getScore();
     public int getHighScore();
+    public boolean resumeGame();
+
+    public int getHint();
+    public boolean updateHint();
 }

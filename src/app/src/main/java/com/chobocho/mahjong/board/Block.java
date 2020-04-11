@@ -1,14 +1,25 @@
 package com.chobocho.mahjong.board;
 
-class Block {
+public class Block {
     public int type;
     public int x;
     public int y;
     public int far;
-    public boolean isHint;
 
     public Block () {
         this.init();
+    }
+
+    public Block (Block b) {
+        this.x = b.x;
+        this.y = b.y;
+        this.type = b.type;
+        this.far = b.far;
+    }
+
+    public Block (int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void init()
@@ -17,7 +28,6 @@ class Block {
         x = 0;
         y = 0;
         far = 0;
-        isHint = false;
     }
     public void set(int type, int x, int y) {
         this.type = type;
