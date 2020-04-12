@@ -14,8 +14,7 @@ abstract public class BoardGameImpl implements BoardGame {
     protected EndState endState;
     protected GameoverState gameoverState;
     protected ArrayList<GameObserver> observers = new ArrayList<>();
-    protected int leftTime;
-    protected Score score;
+    protected GameInfo gameInfo;
 
     abstract public boolean idle();
     abstract public boolean newGame();
@@ -56,44 +55,39 @@ abstract public class BoardGameImpl implements BoardGame {
 
     abstract public boolean resumeGame();
 
+    @Override
     public boolean tick() {
-        leftTime--;
-        if (leftTime < 0) {
-            leftTime = 0;
-        }
-        return leftTime > 0;
+        return gameInfo.tick();
     }
 
+    @Override
     public boolean addTick(int t) {
-        leftTime += t;
-
-        if (leftTime < 10) {
-            leftTime += 10;
-        }
-
-        if (leftTime > MAX_TIME) {
-            leftTime = MAX_TIME;
-        }
-        return true;
+        return gameInfo.addTick(t);
     }
 
+    @Override
     public int getTime() {
-        return leftTime;
+        return gameInfo.getTime();
     }
 
     abstract public int getStage();
 
-    public int getScore() {
-        return score.getScore();
+    @Override
+    public int getGameInfo() {
+        return gameInfo.getScore();
     }
+
+    @Override
     public int getHighScore() {
-        return score.getHighScore();
+        return gameInfo.getHighScore();
     }
+
+    @Override
     public boolean updateHint() { return state.updateHint(); }
 
     @Override
     public int getHint() {
-        return score.getHint();
+        return gameInfo.getHint();
     }
 }
 

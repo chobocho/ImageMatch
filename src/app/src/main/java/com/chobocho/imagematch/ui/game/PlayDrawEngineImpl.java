@@ -5,12 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.chobocho.imagematch.AndroidLog;
 import com.chobocho.imagematch.BoardProfile;
 import com.chobocho.imagematch.ui.DrawEngine;
 import com.chobocho.imagematch.ui.DrawEngineImpl;
 import com.chobocho.mahjong.BoardGame;
-import com.chobocho.mahjong.Mahjong;
 import com.chobocho.mahjong.board.Block;
 
 
@@ -43,9 +41,6 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
     }
 
     private void onDrawCommon(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
-        int screenW = g.getWidth();
-        int screenH = g.getHeight();
-
         int startX = boardProfile.startX;
         int startY = boardProfile.startY;
         int h = boardProfile.boardHeight;
@@ -105,7 +100,7 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int startY = boardProfile.startY-imgSize + (imgSize - stageNumSize)/2;
         int startX = boardProfile.startX+stageNumSize;
 
-        int gameScore = game.getScore();
+        int gameScore = game.getGameInfo();
         for (int i = 6; i >= 0; --i) {
             drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
             gameScore /= 10;

@@ -9,7 +9,7 @@ public interface BoardGame {
     int PAUSE_STATE = 3;
     int END_STATE = 4;
     int GAMEOVER_STATE = 5;
-    int MAX_TIME = 36;
+    int MAX_TIME = 60;
 
     public boolean idle();
     public boolean newGame();
@@ -34,7 +34,7 @@ public interface BoardGame {
     public boolean addTick(int t);
     public int getTime();
     public int getStage();
-    public int getScore();
+    public int getGameInfo();
     public int getHighScore();
     public boolean resumeGame();
 

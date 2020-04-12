@@ -1,6 +1,5 @@
 package com.chobocho.mahjong;
 
-import com.chobocho.mahjong.board.BoardImpl;
 import com.chobocho.util.CLog;
 
 import org.junit.After;
@@ -18,8 +17,8 @@ public class MahjongImplTest {
         int boardHeight = 12;
         int blockKind = 35;
         CLog log = new CLog();
-        Score score = new ScoreImpl();
-        game = new MahjongImpl(log, score, boardWidth, boardHeight, blockKind);
+        GameInfo gameInfo = new GameInfoImpl();
+        game = new MahjongImpl(log, gameInfo, boardWidth, boardHeight, blockKind);
         assert game != null;
     }
 

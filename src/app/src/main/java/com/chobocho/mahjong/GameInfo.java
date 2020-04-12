@@ -1,6 +1,6 @@
 package com.chobocho.mahjong;
 
-public interface Score {
+public interface GameInfo {
     public int addScore(int score);
     public void init();
     public boolean setScore(int score);
@@ -17,4 +17,9 @@ public interface Score {
     public int getHint();
     public int setHint(int hint);
     public int addHint(int hint);
+    public void initTime();
+    public int getTime();
+    public int setMaxTime(int newMaxTime);
+    public boolean addTick(int t);
+    public boolean tick();
 }

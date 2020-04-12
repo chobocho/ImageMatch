@@ -1,7 +1,7 @@
 package com.chobocho.mahjong.state;
 
 import com.chobocho.mahjong.BoardGame;
-import com.chobocho.mahjong.Score;
+import com.chobocho.mahjong.GameInfo;
 import com.chobocho.mahjong.board.Board;
 import com.chobocho.mahjong.board.BoardImpl;
 import com.chobocho.util.CLog;
@@ -15,14 +15,14 @@ public class PlayState extends MajhongGameState {
     int boardHeigth = 12;
     int blockKind = 35;
     BoardGame game;
-    Score score;
+    GameInfo gameInfo;
 
-    public PlayState(BoardGame game, Score score, int width, int height, int blockKind) {
+    public PlayState(BoardGame game, GameInfo gameInfo, int width, int height, int blockKind) {
         this.boardWidth = width;
         this.boardHeigth = height;
         this.blockKind = blockKind;
         this.game = game;
-        this.score = score;
+        this.gameInfo = gameInfo;
 
         initVars();
         initGame();
@@ -43,7 +43,7 @@ public class PlayState extends MajhongGameState {
     }
 
     private void initBoard() {
-        board.setStage(score.getStage());
+        board.setStage(gameInfo.getStage());
     }
 
     public int getState() {
@@ -82,8 +82,8 @@ public class PlayState extends MajhongGameState {
 
         if (result > 0) {
             game.addTick(result);
-            int updateScore = score.calculatorScore(result, game.getTime());
-            score.addScore(updateScore);
+            int updateScore = gameInfo.calculatorScore(result, game.getTime());
+            gameInfo.addScore(updateScore);
             return true;
         } else {
             game.tick();
@@ -98,18 +98,23 @@ public class PlayState extends MajhongGameState {
 
     @Override
     public boolean updateHint() {
-        if (score.getHint() < 1) {
+        if (board.needShuffle()) {
+            board.shuffle();
+        }
+
+        if (gameInfo.getHint() < 1) {
             return false;
         }
+
         boolean result = board.updateHint();
         if (result) {
-            score.addHint(-1);
+            gameInfo.addHint(-1);
         }
         return result;
     }
 
     @Override
     public void addHint(int hint) {
-        score.addHint(hint);
+        gameInfo.addHint(hint);
     }
 }

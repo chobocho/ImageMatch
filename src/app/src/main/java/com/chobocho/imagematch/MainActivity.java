@@ -11,13 +11,13 @@ import android.view.Display;
 
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.MahjongImpl;
-import com.chobocho.mahjong.Score;
+import com.chobocho.mahjong.GameInfo;
 import com.chobocho.mahjong.command.CommandEngine;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = "MainActivity";
     BoardProfile boardProfile;
-    Score score;
+    GameInfo gameInfo;
     BoardGame majhong;
     CommandEngine cmdEngine;
     MahjongGameView gameView;
@@ -39,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
         int height = size.y;
         boardProfile = new BoardProfile(versionName, width, height);
         boardProfile.setScreenSize(width, height);
-        score = new MajhongScore(this);
-        majhong = new MahjongImpl(new AndroidLog(), score, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind+1);
+        gameInfo = new MajhongGameInfo(this);
+        gameInfo.setMaxTime(BoardGame.MAX_TIME);
+        majhong = new MahjongImpl(new AndroidLog(), gameInfo, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind+1);
         cmdEngine = new CommandEngine(majhong);
-        gameView = new MahjongGameView(this, majhong, score, boardProfile, cmdEngine);
+        gameView = new MahjongGameView(this, majhong, gameInfo, boardProfile, cmdEngine);
     }
 
     private String getVersionName() {

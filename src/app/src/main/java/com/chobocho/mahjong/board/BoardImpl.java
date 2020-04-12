@@ -12,6 +12,7 @@ public class BoardImpl implements Board {
     final static int SMALL_TIMER = 24;
     final static int BIG_TIMER = 43;
     final static int HINT = 15;
+    final static int MASTER_CHO = 42;
     protected int width;
     protected int height;
     protected int[][] board;
@@ -167,16 +168,7 @@ public class BoardImpl implements Board {
             blockCount -= removeBlocks.size();
             for (Block block : removeBlocks) {
                 if (state != null) {
-                    if (block.type == SMALL_TIMER) {
-                        state.addTick(15);
-                        CLog.i(TAG, "removeBlock addTick 15");
-                    } else if (block.type == BIG_TIMER) {
-                        CLog.i(TAG, "removeBlock addTick 30");
-                        state.addTick(30);
-                    } else if (block.type == HINT) {
-                        state.addHint(1);
-                        CLog.i(TAG, "removeBlock add Hint 1");
-                    }
+                    processItem(block);
                 }
                 board[block.y][block.x] = EMPTY;
 
@@ -202,6 +194,23 @@ public class BoardImpl implements Board {
             }
         }
         return count;
+    }
+
+    private void processItem(Block block) {
+        if (block.type == SMALL_TIMER) {
+            state.addTick(15);
+            CLog.i(TAG, "removeBlock addTick 15");
+        } else if (block.type == BIG_TIMER) {
+            CLog.i(TAG, "removeBlock addTick 30");
+            state.addTick(30);
+        } else if (block.type == HINT) {
+            state.addHint(1);
+            CLog.i(TAG, "removeBlock add Hint 1");
+        } else if (block.type == MASTER_CHO) {
+            state.addHint(1);
+            state.addTick(42);
+            CLog.i(TAG, "removeBlock MASTER_CHO");
+        }
     }
 
     public boolean isClear() {

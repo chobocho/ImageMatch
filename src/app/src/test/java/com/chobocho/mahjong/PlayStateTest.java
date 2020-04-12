@@ -20,9 +20,9 @@ public class PlayStateTest {
         int boardHeight = 12;
         int blockKind = 35;
         CLog log = new CLog();
-        Score score = new ScoreImpl();
-        BoardGame game = new MahjongImpl(log, score, boardWidth, boardHeight, blockKind);
-        playState = new PlayState(game, score, boardWidth, boardHeight, blockKind);
+        GameInfo gameInfo = new GameInfoImpl();
+        BoardGame game = new MahjongImpl(log, gameInfo, boardWidth, boardHeight, blockKind);
+        playState = new PlayState(game, gameInfo, boardWidth, boardHeight, blockKind);
     }
 
     @After

@@ -11,12 +11,12 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
 
     CLog log;
 
-    public MahjongImpl(CLog log, Score score, int width, int height, int blockKind) {
+    public MahjongImpl(CLog log, GameInfo gameInfo, int width, int height, int blockKind) {
         this.log = log;
-        this.score = score;
+        this.gameInfo = gameInfo;
         noneState = new NoneState();
         idleState = new IdleState();
-        playState = new PlayState(this, this.score, width, height, blockKind);
+        playState = new PlayState(this, this.gameInfo, width, height, blockKind);
         pauseState = new PauseState();
         endState = new EndState();
         gameoverState = new GameoverState();
@@ -49,7 +49,8 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
     public boolean newGame() {
         tryAgain = false;
         idle();
-        score.setStage(1);
+        //gameInfo.setStage(1);
+        gameInfo.setStage(50);
         return true;
     }
 
@@ -73,20 +74,20 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 break;
             case IDLE_STATE:
                 if (tryAgain) {
-                    score.revert();
-                    log.i(TAG, "IDLE_STATE try again " + score.getStage());
+                    gameInfo.revert();
+                    log.i(TAG, "IDLE_STATE try again " + gameInfo.getStage());
                     playState.initGame();
                 } else if (state == pauseState || state == gameoverState) {
-                    score.setStage(1);
-                    log.i(TAG, "IDLE_STATE GameeOver " + score.getStage());
+                    gameInfo.setStage(1);
+                    log.i(TAG, "IDLE_STATE GameeOver " + gameInfo.getStage());
                     playState.initGame();
                 } else {
-                    score.stageUp();
-                    log.i(TAG, "IDLE_STATE New game " + score.getStage());
+                    gameInfo.stageUp();
+                    log.i(TAG, "IDLE_STATE New game " + gameInfo.getStage());
                     playState.initGame();
                 }
                 tryAgain = false;
-                leftTime = BoardGame.MAX_TIME + 1;
+                gameInfo.initTime();
                 state = idleState;
                 break;
             case PLAY_STATE:
@@ -146,6 +147,6 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
 
     @Override
     public int getStage() {
-        return score.getStage();
+        return gameInfo.getStage();
     }
 }

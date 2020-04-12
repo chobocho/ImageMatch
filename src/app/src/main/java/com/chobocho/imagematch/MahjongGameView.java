@@ -16,12 +16,10 @@ import com.chobocho.imagematch.cmd.CommandFactoryManager;
 import com.chobocho.imagematch.ui.DrawModeManager;
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.Mahjong;
-import com.chobocho.mahjong.Score;
+import com.chobocho.mahjong.GameInfo;
 import com.chobocho.mahjong.command.CommandEngine;
 import com.chobocho.mahjong.command.CommandFactory;
 import com.chobocho.mahjong.command.PlayCommand;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class MahjongGameView extends View {
     private String TAG = this.getClass().getName();
@@ -33,7 +31,7 @@ public class MahjongGameView extends View {
     CommandEngine cmdEngine;
     DrawModeManager drawEngine;
     CommandFactoryManager commandFactory;
-    Score score;
+    GameInfo gameInfo;
 
     Bitmap[] blockImages;
     Bitmap[] buttonImages;
@@ -42,10 +40,10 @@ public class MahjongGameView extends View {
     private Handler gameHandler;
     private static final int EMPTY_MESSAGE = 0;
 
-    public MahjongGameView(Context context, BoardGame game, Score score, BoardProfile boardProfile, CommandEngine cmdEngine) {
+    public MahjongGameView(Context context, BoardGame game, GameInfo gameInfo, BoardProfile boardProfile, CommandEngine cmdEngine) {
         super(context);
         this.mContext = context;
-        this.score = score;
+        this.gameInfo = gameInfo;
         this.boardProfile = boardProfile;
 
         loadScore();
@@ -176,7 +174,7 @@ public class MahjongGameView extends View {
     private void saveScore() {
         SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("highscore", score.getHighScore());
+        edit.putInt("highscore", gameInfo.getHighScore());
 
         if (game.isPlayState()) {
             game.pause();
@@ -184,22 +182,22 @@ public class MahjongGameView extends View {
 
         edit.putInt("gameState", game.getState());
         if (game.isIdleState() || game.isPauseState() || game.isEndState()) {
-            edit.putInt("score", score.getScore());
+            edit.putInt("score", gameInfo.getScore());
 
             int addState = game.isEndState() ? 1 : 0;
-            edit.putInt("stage", score.getStage() + addState);
+            edit.putInt("stage", gameInfo.getStage() + addState);
 
-            edit.putInt("hint", score.getHint());
+            edit.putInt("hint", gameInfo.getHint());
         }
 
         edit.commit();
-        Log.i(TAG, "saveScore " +score.getHighScore());
+        Log.i(TAG, "saveScore " + gameInfo.getHighScore());
     }
 
     public void loadScore() {
         SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
         int highscore = pref.getInt("highscore", 0);
-        score.setHighScore(highscore);
+        gameInfo.setHighScore(highscore);
         Log.i(TAG, "highscore " + highscore);
 
         int gameState = pref.getInt("gameState", 0);
@@ -207,9 +205,9 @@ public class MahjongGameView extends View {
             int gameScore = pref.getInt("score", 0);
             int stage = pref.getInt("stage", 0);
             int hint = pref.getInt("hint", 0);
-            score.setScore(gameScore);
-            score.setStage(stage);
-            score.setHint(hint);
+            gameInfo.setScore(gameScore);
+            gameInfo.setStage(stage);
+            gameInfo.setHint(hint);
             Log.i(TAG, "load score");
         }
 
