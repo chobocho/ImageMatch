@@ -49,8 +49,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
     public boolean newGame() {
         tryAgain = false;
         idle();
-        //gameInfo.setStage(1);
-        gameInfo.setStage(50);
+        gameInfo.setStage(1);
         return true;
     }
 
