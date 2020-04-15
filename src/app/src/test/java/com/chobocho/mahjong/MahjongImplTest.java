@@ -32,6 +32,9 @@ public class MahjongImplTest {
 
     @Test
     public void pause() {
+        assertEquals(false, game.isPauseState());
+        game.pause();
+        assertEquals(true, game.isPauseState());
     }
 
     @Test
@@ -44,11 +47,12 @@ public class MahjongImplTest {
 
     @Test
     public void idle() {
-        assertEquals(game.idle(), true);
+        assertEquals(true, game.isIdleState());
+        assertEquals(1, game.getStage());
     }
 
     @Test
-    public void tryAgin() {
+    public void tryAgain() {
     }
 
     @Test
