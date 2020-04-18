@@ -173,8 +173,8 @@ public class BoardImpl implements Board {
                 board[block.y][block.x] = EMPTY;
 
                 if (!hintBlocks.isEmpty()) {
-                    for (Block hint : hintBlocks) {
-                        if (block.x == hint.x && block.y == hint.y) {
+                    for (int i = 0; i < hintBlocks.size(); i++) {
+                        if (block.x == hintBlocks.get(i).x && block.y == hintBlocks.get(i).y) {
                             hintBlocks.clear();
                             CLog.i(TAG, "It is hint block");
                         }

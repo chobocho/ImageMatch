@@ -39,6 +39,7 @@ public class MahjongGameView extends View {
     private HandlerThread gameHandlerThread;
     private Handler gameHandler;
     private static final int EMPTY_MESSAGE = 0;
+    final int UPDATE_SCREEN = 1001;
 
     public MahjongGameView(Context context, BoardGame game, GameInfo gameInfo, BoardProfile boardProfile, CommandEngine cmdEngine) {
         super(context);
@@ -77,7 +78,7 @@ public class MahjongGameView extends View {
                     } else {
                         gameHandler.sendEmptyMessageDelayed(EMPTY_MESSAGE, gameSpeed);
                     }
-                    invalidate();
+                    update();
                 }
             }
         };
@@ -116,7 +117,9 @@ public class MahjongGameView extends View {
 
     public void update() {
         Log.d(TAG, "View.update()");
-        invalidate();
+        Message message= new Message();
+        message.what = UPDATE_SCREEN;
+        mHandler.sendMessage(message);
     }
 
 
@@ -212,4 +215,14 @@ public class MahjongGameView extends View {
         }
 
     }
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            Log.d("Hexa", "There is event : " + msg.what);
+            if (msg.what == UPDATE_SCREEN) {
+                invalidate();
+            }
+        }
+    };
+
 }

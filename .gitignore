@@ -5,3 +5,6 @@
 /apk
 /src/app/release
 /src/app/libs
+/simfull_co_kr_colormatch.jks
+/src/.gradle
+/src/.idea/libraries
