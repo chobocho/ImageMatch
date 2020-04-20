@@ -35,9 +35,10 @@ public class CommandEngine {
         functionMap.put(PlayCommand.RESUME_GAME, new ResumeGameFunction());
         functionMap.put(PlayCommand.NEW_GAME, new NewGameFunction());
         functionMap.put(PlayCommand.HINT, new HintFunction());
+        functionMap.put(PlayCommand.CHALLENGE, new ChallengeFunction());
     }
 
-    public boolean runCommand (PlayCommand command) {
+    public boolean runCommand(PlayCommand command) {
         if (command == null) {
             CLog.i(TAG, "Command is null");
             return false;
@@ -49,7 +50,7 @@ public class CommandEngine {
 
         CLog.i(TAG, command.toString());
 
-        if (command.command.equals(PlayCommand.NEW_GAME) || command.command.equals(PlayCommand.RESUME_GAME)) {
+        if (needToUpdateState(command)) {
             notify(GAME_MODE);
         }
 
@@ -61,6 +62,12 @@ public class CommandEngine {
         }
         isRunning = false;
         return result;
+    }
+
+    boolean needToUpdateState(PlayCommand command) {
+        return command.command.equals(PlayCommand.NEW_GAME) ||
+                command.command.equals(PlayCommand.RESUME_GAME) ||
+                command.command.equals(PlayCommand.CHALLENGE);
     }
 
     public void register(CmdEngineObserver observer) {

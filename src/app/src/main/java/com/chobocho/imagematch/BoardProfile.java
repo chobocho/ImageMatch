@@ -30,6 +30,7 @@ public class BoardProfile {
     final static public int HIGH_SCORE_BUTTON = 25;
     final static public int TRY_AGAIN_BUTTON = 26;
     final static public int HINT_BUTTON = 27;
+    final static public int CHALLENGE_BUTTON = 28;
 
     public static String versionName = "0.1105";
     public static int screenW = 1080;
@@ -50,7 +51,7 @@ public class BoardProfile {
     final static public int boardWidth = 8;
     final static public int boardHeight = 12;
 
-    public static int blockKind = 45;
+    public static int blockKind = 54;
     public static int HINT = blockKind + 1;
 
     public BoardProfile(String versionName, int w, int h) {
@@ -124,6 +125,15 @@ public class BoardProfile {
             R.drawable.block43,
             R.drawable.block44,
             R.drawable.block45,
+            R.drawable.block46,
+            R.drawable.block47,
+            R.drawable.block48,
+            R.drawable.block49,
+            R.drawable.block50,
+            R.drawable.block51,
+            R.drawable.block52,
+            R.drawable.block53,
+            R.drawable.block54,
             R.drawable.hint,
     };
 
@@ -155,7 +165,8 @@ public class BoardProfile {
             R.drawable.sn09,
             R.drawable.highscore,
             R.drawable.tryagain,
-            R.drawable.hint_button
+            R.drawable.hint_button,
+            R.drawable.challenge
     };
 
 }

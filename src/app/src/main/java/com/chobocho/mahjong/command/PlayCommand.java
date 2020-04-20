@@ -11,6 +11,7 @@ public class PlayCommand {
     public static final String RESUME_GAME = "resume_game";
     public static final String TRYAGAIN = "tryagain";
     public static final String HINT = "hint";
+    public static final String CHALLENGE = "challenge";
 
     public String command;
     public int x1;

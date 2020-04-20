@@ -18,6 +18,7 @@ public interface BoardGame {
     public boolean winState();
     public boolean gameoverState();
     public boolean tryAgin();
+    public boolean challengeNextStage();
 
     public void register(GameObserver observer);
 

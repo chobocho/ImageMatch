@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class MahjongImplTest {
     BoardGame game;
+    GameInfo gameInfo;
 
     @Before
     public void setUp() throws Exception {
@@ -17,7 +18,7 @@ public class MahjongImplTest {
         int boardHeight = 12;
         int blockKind = 35;
         CLog log = new CLog();
-        GameInfo gameInfo = new GameInfoImpl();
+        gameInfo = new GameInfoImpl();
         game = new MahjongImpl(log, gameInfo, boardWidth, boardHeight, blockKind);
         assert game != null;
     }
@@ -39,6 +40,11 @@ public class MahjongImplTest {
 
     @Test
     public void winState() {
+        assertEquals(true, game.idle());
+        int stage = game.getStage();
+        assertEquals(2, stage);
+        assertEquals(true, ((MahjongImpl)game).setState(BoardGame.END_STATE));
+        assertEquals(3, gameInfo.getHighStage());
     }
 
     @Test

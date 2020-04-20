@@ -3,10 +3,16 @@ package com.chobocho.mahjong;
 public interface GameInfo {
     public int addScore(int score);
     public void init();
+
+    public int getScore();
     public boolean setScore(int score);
     public boolean setHighScore(int score);
     public void updateHighScore();
-    public int getScore();
+
+    public int getHighStage();
+    public boolean setHighStage(int stage);
+    public void updateHighStage();
+
     public int getHighScore();
     public int calculatorScore(int removedBlockCount, int time);
     public void backup();

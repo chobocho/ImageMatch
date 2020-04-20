@@ -67,7 +67,16 @@ public class MahjongGameView extends View {
             @Override
             public void handleMessage(Message msg){
                 if (game != null && game.isPlayState()) {
-                    int gameSpeed = 1000 - game.getStage() * 5;
+                    int gameSpeed = 1000;
+                    if (game.getStage() < 100) {
+                        gameSpeed -= game.getStage() * 5;
+                    } else {
+                        gameSpeed -= game.getStage();
+                    }
+                    if (gameSpeed < 500) {
+                        gameSpeed = 500;
+                    }
+
                     Log.i(TAG, "GameSpeed: " + gameSpeed);
                     if (gameHandler.hasMessages(EMPTY_MESSAGE)) {
                         gameHandler.removeMessages(EMPTY_MESSAGE);
@@ -178,6 +187,7 @@ public class MahjongGameView extends View {
         SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
         SharedPreferences.Editor edit = pref.edit();
         edit.putInt("highscore", gameInfo.getHighScore());
+        edit.putInt("highstage", gameInfo.getHighStage());
 
         if (game.isPlayState()) {
             game.pause();
@@ -201,7 +211,10 @@ public class MahjongGameView extends View {
         SharedPreferences pref = mContext.getSharedPreferences("ImageMatch", 0);
         int highscore = pref.getInt("highscore", 0);
         gameInfo.setHighScore(highscore);
-        Log.i(TAG, "highscore " + highscore);
+        Log.i(TAG, "High Score " + highscore);
+        int highstage = pref.getInt("highstage", 1);
+        gameInfo.setHighStage(highstage);
+        Log.i(TAG, "High Stage " + highstage);
 
         int gameState = pref.getInt("gameState", 0);
         if (gameState == BoardGame.IDLE_STATE || gameState == BoardGame.PAUSE_STATE || gameState == BoardGame.END_STATE) {

@@ -50,6 +50,16 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
         tryAgain = false;
         idle();
         gameInfo.setStage(1);
+        playState.initGame();
+        return true;
+    }
+
+    @Override
+    public boolean challengeNextStage() {
+        tryAgain = false;
+        idle();
+        gameInfo.setStage(gameInfo.getHighStage());
+        playState.initGame();
         return true;
     }
 
@@ -65,7 +75,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
         return setState(IDLE_STATE);
     }
 
-    private boolean setState(int newState) {
+    boolean setState(int newState) {
         log.i(TAG, "newState: " + newState);
         switch (newState) {
             case NONE_STATE:
@@ -96,6 +106,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                 state = pauseState;
                 break;
             case END_STATE:
+                gameInfo.updateHighStage();
                 state = endState;
                 break;
             case GAMEOVER_STATE:

@@ -4,6 +4,7 @@ public class GameInfoImpl implements GameInfo {
     int score = 0;
     int highScore = 0;
     int previousScore = 0;
+    int highState = 1;
     protected int stage = 0;
 
     final int DEFAULT_HINT = 3;
@@ -12,6 +13,7 @@ public class GameInfoImpl implements GameInfo {
     int hint = 0;
 
     int MAX_TIME = 60;
+    int MAX_STAGE = 999;
     int time = 0;
 
     public GameInfoImpl() {
@@ -19,6 +21,7 @@ public class GameInfoImpl implements GameInfo {
         this.highScore = 0;
         this.previousScore = 0;
         this.stage = 0;
+        this.highState = 1;
         this.previousHint = 0;
         this.hint = DEFAULT_HINT;
         this.time = MAX_TIME+1;
@@ -33,6 +36,27 @@ public class GameInfoImpl implements GameInfo {
     }
 
     @Override
+    public int getHighStage() {
+        return highState;
+    }
+
+    @Override
+    public boolean setHighStage(int stage) {
+        highState = stage;
+        return true;
+    }
+
+    @Override
+    public void updateHighStage() {
+        if ((this.stage+1) > this.highState) {
+            this.highState = this.stage+1;
+            if (highState > MAX_STAGE) {
+                highState = MAX_STAGE;
+            }
+        }
+    }
+
+    @Override
     public int getStage() {
         return stage;
     }
@@ -41,7 +65,7 @@ public class GameInfoImpl implements GameInfo {
     public void setStage(int newStage) {
         newStage = newStage < 1 ? 1 : newStage;
 
-        this.stage = newStage > 99 ? 99 : newStage;
+        this.stage = newStage > MAX_STAGE ? MAX_STAGE : newStage;
         if (newStage == 1) {
             init();
         } else {
@@ -52,14 +76,13 @@ public class GameInfoImpl implements GameInfo {
 
     @Override
     public void stageUp() {
-        this.stage = (this.stage + 1) % 100;
+        this.stage = (this.stage + 1) % (MAX_STAGE+1);
 
         if ((stage % 3) == 2) {
             addHint(1);
         } else if (stage > 15) {
-            addHint(1);
+            addHint(stage/10);
         }
-
         backup();
     }
 
