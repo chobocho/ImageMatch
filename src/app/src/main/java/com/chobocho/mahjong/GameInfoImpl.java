@@ -9,6 +9,7 @@ public class GameInfoImpl implements GameInfo {
 
     final int DEFAULT_HINT = 3;
     final int MAX_HINT = 9;
+    final int MAX_SCORE = 9999999;
     int previousHint = 0;
     int hint = 0;
 
@@ -42,6 +43,9 @@ public class GameInfoImpl implements GameInfo {
 
     @Override
     public boolean setHighStage(int stage) {
+        if (stage > MAX_STAGE) {
+            stage = MAX_STAGE;
+        }
         highState = stage;
         return true;
     }
@@ -89,6 +93,7 @@ public class GameInfoImpl implements GameInfo {
     @Override
     public int addScore(int score) {
         this.score += score;
+        this.score = this.score > MAX_SCORE ? MAX_SCORE : this.score;
         updateHighScore();
         return this.score;
     }
@@ -101,6 +106,7 @@ public class GameInfoImpl implements GameInfo {
 
     @Override
     public boolean setHighScore(int score) {
+        score = score > MAX_SCORE ? MAX_SCORE : score;
         this.highScore = score;
         return true;
     }

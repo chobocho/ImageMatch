@@ -78,4 +78,17 @@ public class MahjongImplTest {
     @Test
     public void getBoard() {
     }
+
+    @Test
+    public void scoreTest() {
+        gameInfo.setHighScore(10000000);
+        assertEquals(9999999, gameInfo.getHighScore());
+    }
+
+    @Test
+    public void stageTest() {
+        gameInfo.setHighStage(10000000);
+        assertEquals(999, gameInfo.getHighStage());
+    }
+
 }
