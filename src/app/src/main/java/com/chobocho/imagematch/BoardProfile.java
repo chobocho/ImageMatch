@@ -53,6 +53,7 @@ public class BoardProfile {
 
     public static int blockKind = 54;
     public static int HINT = blockKind + 1;
+    public static int NANHEE = HINT+1;
 
     public BoardProfile(String versionName, int w, int h) {
         this.versionName = versionName;
@@ -135,6 +136,7 @@ public class BoardProfile {
             R.drawable.block53,
             R.drawable.block54,
             R.drawable.hint,
+            R.drawable.block99
     };
 
     final static public int[] ButtonImageName = {

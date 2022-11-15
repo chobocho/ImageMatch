@@ -6,7 +6,7 @@ import com.chobocho.util.CLog;
 
 public class MahjongImpl extends BoardGameImpl implements Mahjong {
     private static final String TAG = "MahjongImpl";
-    private static final String Version = "0.1105.TD1";
+    private static final String Version = "0.1105.VK1";
     boolean tryAgain = false;
 
     CLog log;
@@ -70,7 +70,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
     }
 
     @Override
-    public boolean tryAgin() {
+    public boolean tryAgain() {
         tryAgain = true;
         return setState(IDLE_STATE);
     }
@@ -88,7 +88,7 @@ public class MahjongImpl extends BoardGameImpl implements Mahjong {
                     playState.initGame();
                 } else if (state == pauseState || state == gameoverState) {
                     gameInfo.setStage(1);
-                    log.i(TAG, "IDLE_STATE GameeOver " + gameInfo.getStage());
+                    log.i(TAG, "IDLE_STATE GameOver " + gameInfo.getStage());
                     playState.initGame();
                 } else {
                     gameInfo.stageUp();

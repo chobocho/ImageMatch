@@ -12,6 +12,7 @@ public class BoardImpl implements Board {
     final static int SMALL_TIMER = 24;
     final static int BIG_TIMER = 43;
     final static int HINT = 15;
+    final static int NANHEE = BoardProfile.NANHEE;
     final static int MASTER_CHO = 42;
     protected int width;
     protected int height;
@@ -88,6 +89,18 @@ public class BoardImpl implements Board {
                 blockCount += 2;
             }
             loopCount--;
+        }
+    }
+
+    // When there is only fair block exist
+    public void setNanheeStage() {
+        CLog.i(TAG, "setNanheeStage!");
+
+        initBoard();
+        hintBlocks.clear();
+
+        if (insertBlock(NANHEE)) {
+            blockCount += 2;
         }
     }
 
@@ -259,7 +272,12 @@ public class BoardImpl implements Board {
         int currentCount = blockCount;
         int maxCount = 100;
 
-        while ((!isRemovable()) && (maxCount > 0)) {
+        if (currentCount == 2) {
+            setNanheeStage();
+            return true;
+        }
+
+        while (!isRemovable() && (maxCount > 0)) {
             setStage(currentCount / 2);
             if (currentCount > 10) {
                 addTimeIcon();
