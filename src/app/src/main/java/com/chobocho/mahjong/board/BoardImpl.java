@@ -9,11 +9,11 @@ import java.util.List;
 
 public class BoardImpl implements Board {
     final static String TAG = "BoardImpl";
-    final static int SMALL_TIMER = 24;
-    final static int BIG_TIMER = 43;
-    final static int HINT = 15;
+    final static int SMALL_TIMER = BoardProfile.SMALL_TIMER;
+    final static int BIG_TIMER = BoardProfile.BIG_TIMER;
+    final static int HINT = BoardProfile.HINT;
     final static int NANHEE = BoardProfile.NANHEE;
-    final static int MASTER_CHO = 42;
+    final static int MASTER_CHO = BoardProfile.MASTER_CHO;
     protected int width;
     protected int height;
     protected int[][] board;
@@ -21,8 +21,9 @@ public class BoardImpl implements Board {
     protected int blockCount = 0;
     PlayState state;
     List<Block> hintBlocks;
+    protected int []imageList = new int[BoardProfile.imageName.length+1];
 
-    int blockKind = 35;
+    int blockKind = BoardProfile.blockKind;
     int EMPTY = 0;
 
     public BoardImpl(int w, int h, int blockKind) {
@@ -54,6 +55,25 @@ public class BoardImpl implements Board {
     private void initVars() {
         board = new int[height + 1][width + 1];
         hintBlocks = new LinkedList<>();
+        shuffleImageList();
+    }
+
+    private void shuffleImageList() {
+        for (int i = 0; i < BoardProfile.imageName.length; i++) {
+            imageList[i] = i;
+        }
+
+        for (int i = 1; i <= this.blockKind; i++) {
+            int next = (int) (Math.random() * this.blockKind) + 1;
+
+            if (i == next || next > this.blockKind) {
+                continue;
+            }
+
+            int tmp = imageList[i];
+            imageList[i] = imageList[next];
+            imageList[next] = tmp;
+        }
     }
 
     private void initBoard() {
@@ -67,12 +87,8 @@ public class BoardImpl implements Board {
         initBoard();
         hintBlocks.clear();
 
-        int blockStart = (int) (Math.random() * 15 - stage);
+        int blockStart = 1;
         int blockTypeRange = (int) (Math.random() * 15) + 8 + stage;
-
-        if (blockStart < 1) {
-            blockStart = 1;
-        }
 
         if (blockTypeRange > blockKind) {
             blockTypeRange = blockKind;
@@ -96,11 +112,24 @@ public class BoardImpl implements Board {
     public void setNanheeStage() {
         CLog.i(TAG, "setNanheeStage!");
 
+        int currentCount = blockCount;
+
         initBoard();
         hintBlocks.clear();
 
         if (insertBlock(NANHEE)) {
             blockCount += 2;
+        }
+
+        int blockStart = 1;
+        int blockTypeRange = (int) (Math.random() * blockKind);
+
+        int loopCount = 100;
+
+        while (blockCount < currentCount && --loopCount > 0) {
+            if (insertBlock(blockStart, blockTypeRange)) {
+                blockCount += 2;
+            }
         }
     }
 
@@ -152,8 +181,10 @@ public class BoardImpl implements Board {
             return false;
         }
 
-        board[one_y][one_x] = blockType;
-        board[two_y][two_x] = blockType;
+        CLog.i(TAG, "insertBlock" + imageList[blockType] + ", " + blockType);
+
+        board[one_y][one_x] = imageList[blockType];
+        board[two_y][two_x] = imageList[blockType];
 
         return true;
     }
@@ -272,7 +303,7 @@ public class BoardImpl implements Board {
         int currentCount = blockCount;
         int maxCount = 100;
 
-        if (currentCount == 2) {
+        if (currentCount <= 10) {
             setNanheeStage();
             return true;
         }

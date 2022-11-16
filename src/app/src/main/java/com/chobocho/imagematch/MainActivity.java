@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         boardProfile.setScreenSize(width, height);
         gameInfo = new MajhongGameInfo(this);
         gameInfo.setMaxTime(BoardGame.MAX_TIME);
-        majhong = new MahjongImpl(new AndroidLog(), gameInfo, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind+1);
+        majhong = new MahjongImpl(new AndroidLog(), gameInfo, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind);
         cmdEngine = new CommandEngine(majhong);
         gameView = new MahjongGameView(this, majhong, gameInfo, boardProfile, cmdEngine);
     }

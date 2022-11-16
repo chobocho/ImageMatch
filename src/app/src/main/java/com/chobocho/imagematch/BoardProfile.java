@@ -50,10 +50,14 @@ public class BoardProfile {
 
     final static public int boardWidth = 8;
     final static public int boardHeight = 12;
+    public final static int blockKind = 64;
 
-    public static int blockKind = 54;
-    public static int HINT = blockKind + 1;
-    public static int NANHEE = HINT+1;
+    public final static int MASTER_CHO = 2;
+    public final static int HINT = blockKind+1;
+    public final static int SMALL_TIMER = 24;
+    public final static int BIG_TIMER = 43;
+
+    public final static int NANHEE = HINT+1;
 
     public BoardProfile(String versionName, int w, int h) {
         this.versionName = versionName;
@@ -135,6 +139,16 @@ public class BoardProfile {
             R.drawable.block52,
             R.drawable.block53,
             R.drawable.block54,
+            R.drawable.block55,
+            R.drawable.block56,
+            R.drawable.block57,
+            R.drawable.block58,
+            R.drawable.block59,
+            R.drawable.block60,
+            R.drawable.block61,
+            R.drawable.block62,
+            R.drawable.block63,
+            R.drawable.block64,
             R.drawable.hint,
             R.drawable.block99
     };
