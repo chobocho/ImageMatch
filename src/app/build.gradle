@@ -36,7 +36,7 @@ android {
     versionInfo['VERSION_HEADER'] = versionHeader.toString()
     versionInfo['VERSION_CODE'] = releaseVersionCode.toString()
     versionInfo['MONTHLY_RELEASE_COUNT'] = versionCount.toString()
-    versionInfo['BUILD_COUNT'] = isReleaseVersion ? "1" : buildCount.toString()
+    versionInfo['BUILD_COUNT'] = buildCount.toString()
 
     versionInfo.store(versionPropsFile.newWriter(), null)
 
@@ -47,7 +47,7 @@ android {
 
     println '-------------------'
     println taskName
-    println "${versionHeader}.${thisYear}${thisMonth}.${buildCount}"
+    println "${versionHeader}.${thisYear}${thisMonth}${versionCount}.${buildCount}"
     println '-------------------'
 
     defaultConfig {
@@ -55,7 +55,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 31
         versionCode releaseVersionCode
-        versionName "${versionHeader}.${thisYear}${thisMonth}.${buildCount}"
+        versionName "${versionHeader}.${thisYear}${thisMonth}${versionCount}.${buildCount}"
         setProperty("archivesBaseName", "imagematch_$versionName")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

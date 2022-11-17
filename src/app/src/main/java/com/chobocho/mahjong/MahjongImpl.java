@@ -6,7 +6,6 @@ import com.chobocho.util.CLog;
 
 public class MahjongImpl extends BoardGameImpl implements Mahjong {
     private static final String TAG = "MahjongImpl";
-    private static final String Version = "0.1105.VK1";
     boolean tryAgain = false;
 
     CLog log;

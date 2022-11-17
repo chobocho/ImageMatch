@@ -84,10 +84,12 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int stageNumSize = boardProfile.blockSize-20;
 
         int stage = game.getStage();
-        drawImage(g, buttonImages[stage / 100 + BoardProfile.SMALL_NUMBER_0], stageX, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[stage / 1000 + BoardProfile.SMALL_NUMBER_0], stageX, stageY, stageNumSize, stageNumSize, paint);
+        stage %= 1000;
+        drawImage(g, buttonImages[stage / 100 + BoardProfile.SMALL_NUMBER_0], stageX+stageNumSize, stageY, stageNumSize, stageNumSize, paint);
         stage %= 100;
-        drawImage(g, buttonImages[stage/ 10 + BoardProfile.SMALL_NUMBER_0], stageX+stageNumSize, stageY, stageNumSize, stageNumSize, paint);
-        drawImage(g, buttonImages[stage % 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize*2, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[stage/ 10 + BoardProfile.SMALL_NUMBER_0], stageX+stageNumSize*2, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[stage % 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize*3, stageY, stageNumSize, stageNumSize, paint);
 
         int pauseStartX = boardProfile.endX - imgSize-20;
         drawImage(g, buttonImages[boardProfile.PAUSE_BUTTON], pauseStartX, screenH-imgSize-20, imgSize, imgSize, paint);
@@ -104,23 +106,26 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int startX = boardProfile.startX+stageNumSize;
 
         int gameScore = game.getGameInfo();
-        for (int i = 6; i >= 0; --i) {
-            drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
+        for (int i = 7; i >= 0; --i) {
+            drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0],
+                    startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
             gameScore /= 10;
         }
     }
 
-    private void onDrawHighScore(Canvas g, BoardGame game, BoardProfile boardProfile, Bitmap[] blockImages, Bitmap[] buttonImages) {
+    private void onDrawHighScore(Canvas g, BoardGame game, BoardProfile boardProfile,
+                                 Bitmap[] blockImages, Bitmap[] buttonImages) {
         int imgSize = boardProfile.blockSize;
         int stageNumSize = boardProfile.blockSize / 2;
         int startY = boardProfile.startY + boardProfile.boardHeight * imgSize + (imgSize - stageNumSize)/2;
-        int startX = boardProfile.startX+20;
+        int startX = boardProfile.startX;
 
         drawImage(g, buttonImages[boardProfile.HIGH_SCORE_BUTTON], startX, startY, imgSize*2, stageNumSize, paint);
 
         int gameScore = game.getHighScore();
-        for (int i = 6; i >= 0; --i) {
-            drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0], imgSize * 2 + startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
+        for (int i = 7; i >= 0; --i) {
+            drawImage(g, buttonImages[ gameScore % 10 + BoardProfile.SMALL_NUMBER_0],
+                    imgSize*2 + startX + stageNumSize*i, startY, stageNumSize, stageNumSize, paint);
             gameScore /= 10;
         }
     }

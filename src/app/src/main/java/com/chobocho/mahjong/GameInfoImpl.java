@@ -9,12 +9,12 @@ public class GameInfoImpl implements GameInfo {
 
     final int DEFAULT_HINT = 3;
     final int MAX_HINT = 9;
-    final int MAX_SCORE = 9999999;
+    final int MAX_SCORE = 99999999;
     int previousHint = 0;
     int hint = 0;
 
     int MAX_TIME = 60;
-    int MAX_STAGE = 999;
+    int MAX_STAGE = 1123;
     int time = 0;
 
     public GameInfoImpl() {

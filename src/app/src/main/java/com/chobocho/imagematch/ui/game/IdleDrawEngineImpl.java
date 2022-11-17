@@ -35,12 +35,14 @@ public class IdleDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         AndroidLog.i(TAG, "Level: " + game.getStage());
         int stageX = boardProfile.startX + boardProfile.blockSize;
         int stageY = boardProfile.startY + boardProfile.blockSize * 6;
-        int stageNumSize = boardProfile.blockSize * 2;
+        int stageNumSize = (int)(boardProfile.blockSize * 1.6);
 
         int stage = game.getStage();
-        drawImage(g, buttonImages[stage / 100 + BoardProfile.SMALL_NUMBER_0], stageX, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[stage / 1000 + BoardProfile.SMALL_NUMBER_0], stageX, stageY, stageNumSize, stageNumSize, paint);
+        stage %= 1000;
+        drawImage(g, buttonImages[stage / 100 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize, stageY, stageNumSize, stageNumSize, paint);
         stage %= 100;
-        drawImage(g, buttonImages[stage / 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize, stageY, stageNumSize, stageNumSize, paint);
-        drawImage(g, buttonImages[stage % 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize*2, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[stage / 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize*2, stageY, stageNumSize, stageNumSize, paint);
+        drawImage(g, buttonImages[stage % 10 + BoardProfile.SMALL_NUMBER_0], stageX + stageNumSize*3, stageY, stageNumSize, stageNumSize, paint);
     }
 }

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageInfo pkgInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pkgInfo.versionName;
-            Log.i(TAG, "Version Name : "+ version);
+            Log.i(TAG, "Version Name: "+ version);
             return version;
         } catch(PackageManager.NameNotFoundException e) {
             e.printStackTrace();

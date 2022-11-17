@@ -50,7 +50,7 @@ public class BoardProfile {
 
     final static public int boardWidth = 8;
     final static public int boardHeight = 12;
-    public final static int blockKind = 64;
+    public final static int blockKind = 65;
 
     public final static int MASTER_CHO = 2;
     public final static int HINT = blockKind+1;
@@ -68,7 +68,7 @@ public class BoardProfile {
         this.screenW = w;
         this.screenH = h;
 
-        int widthBlockSize = (int) (h / (boardHeight+3));
+        int widthBlockSize = (int) (h / (boardHeight+4));
         blockSize = (int) (w / boardWidth);
         AndroidLog.i(TAG, "W: " + blockSize + ", H: " + widthBlockSize);
         blockSize = blockSize <= widthBlockSize ? blockSize : widthBlockSize;
@@ -149,6 +149,7 @@ public class BoardProfile {
             R.drawable.block62,
             R.drawable.block63,
             R.drawable.block64,
+            R.drawable.block65,
             R.drawable.hint,
             R.drawable.block99
     };

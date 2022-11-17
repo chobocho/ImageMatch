@@ -122,7 +122,11 @@ public class BoardImpl implements Board {
         }
 
         int blockStart = 1;
-        int blockTypeRange = (int) (Math.random() * blockKind);
+        int blockTypeRange = (int) (Math.random() * blockKind) + 1;
+
+        if (blockTypeRange > blockKind) {
+            blockTypeRange = blockKind;
+        }
 
         int loopCount = 100;
 
@@ -134,7 +138,7 @@ public class BoardImpl implements Board {
     }
 
     private boolean insertBlock(int blockStart, int blockTypeRange) {
-        CLog.i(TAG, "insertBlock " + blockStart);
+        CLog.i(TAG, "insertBlock from " + blockStart + ", to " + blockTypeRange);
 
         int blockType = ((int) (Math.random() * blockKind) % blockTypeRange + blockStart) % blockKind;
 
@@ -146,6 +150,7 @@ public class BoardImpl implements Board {
     }
 
     private boolean insertBlock(int blockType) {
+        CLog.i(TAG, "insertBlock " + blockType);
         int MAX_LOOPCOUNT = 100;
 
         int one_x = 0;
@@ -181,7 +186,7 @@ public class BoardImpl implements Board {
             return false;
         }
 
-        CLog.i(TAG, "insertBlock" + imageList[blockType] + ", " + blockType);
+        CLog.i(TAG, "insertBlock " + imageList[blockType] + ", " + blockType);
 
         board[one_y][one_x] = imageList[blockType];
         board[two_y][two_x] = imageList[blockType];
