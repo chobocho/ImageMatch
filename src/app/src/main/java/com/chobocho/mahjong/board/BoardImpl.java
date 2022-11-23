@@ -122,11 +122,7 @@ public class BoardImpl implements Board {
         }
 
         int blockStart = 1;
-        int blockTypeRange = (int) (Math.random() * blockKind) + 1;
-
-        if (blockTypeRange > blockKind) {
-            blockTypeRange = blockKind;
-        }
+        int blockTypeRange = blockKind;
 
         int loopCount = 100;
 

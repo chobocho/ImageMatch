@@ -58,7 +58,8 @@ public class WinPlayCommandFactoryStateImpl extends PlayCommandFactoryStateImpl 
 
         int imgSize = boardProfile.blockSize;
         int startX = boardProfile.endX - imgSize-20;
-        int startY = screenH-imgSize-20;
+        //int startY = screenH-imgSize*2-20;
+        int startY = boardProfile.startY + boardProfile.boardHeight * imgSize + imgSize + (imgSize/2);
         buttons.push(new ButtonPosition(PlayCommand.PAUSE, startX, startY, startX + imgSize,startY + imgSize));
 
         int hintStartX = startX - imgSize * 2;

@@ -68,7 +68,7 @@ public class BoardProfile {
         this.screenW = w;
         this.screenH = h;
 
-        int widthBlockSize = (int) (h / (boardHeight+4));
+        int widthBlockSize = (int) (h / (boardHeight+5));
         blockSize = (int) (w / boardWidth);
         AndroidLog.i(TAG, "W: " + blockSize + ", H: " + widthBlockSize);
         blockSize = blockSize <= widthBlockSize ? blockSize : widthBlockSize;
