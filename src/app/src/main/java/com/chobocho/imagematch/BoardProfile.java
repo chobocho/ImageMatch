@@ -54,6 +54,7 @@ public class BoardProfile {
 
     public final static int MASTER_CHO = 2;
     public final static int HINT = blockKind+1;
+    public final static int HINT_TILE = 7;
     public final static int SMALL_TIMER = 24;
     public final static int BIG_TIMER = 43;
 

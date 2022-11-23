@@ -12,6 +12,7 @@ public class BoardImpl implements Board {
     final static int SMALL_TIMER = BoardProfile.SMALL_TIMER;
     final static int BIG_TIMER = BoardProfile.BIG_TIMER;
     final static int HINT = BoardProfile.HINT;
+    final static int HINT_TILE = BoardProfile.HINT_TILE;
     final static int NANHEE = BoardProfile.NANHEE;
     final static int MASTER_CHO = BoardProfile.MASTER_CHO;
     protected int width;
@@ -244,17 +245,17 @@ public class BoardImpl implements Board {
     private void processItem(Block block) {
         if (block.type == SMALL_TIMER) {
             state.addTick(15);
-            CLog.i(TAG, "removeBlock addTick 15");
+            CLog.i(TAG, "[removeBlock] addTick 15");
         } else if (block.type == BIG_TIMER) {
-            CLog.i(TAG, "removeBlock addTick 30");
+            CLog.i(TAG, "[removeBlock] addTick 30");
             state.addTick(30);
-        } else if (block.type == HINT) {
+        } else if (block.type == HINT_TILE) {
             state.addHint(1);
-            CLog.i(TAG, "removeBlock add Hint 1");
+            CLog.i(TAG, "[removeBlock] add Hint 1");
         } else if (block.type == MASTER_CHO) {
             state.addHint(1);
             state.addTick(42);
-            CLog.i(TAG, "removeBlock MASTER_CHO");
+            CLog.i(TAG, "[removeBlock] MASTER_CHO");
         }
     }
 

@@ -104,7 +104,7 @@ public class PlayDrawEngineImpl extends DrawEngineImpl implements DrawEngine {
         int imgSize = boardProfile.blockSize;
         int stageNumSize = boardProfile.blockSize / 2;
         int startY = boardProfile.startY-imgSize + (imgSize - stageNumSize)/2;
-        int startX = boardProfile.startX+stageNumSize;
+        int startX = boardProfile.startX + boardProfile.boardWidth * imgSize - 8 * stageNumSize;
 
         int gameScore = game.getGameInfo();
         for (int i = 7; i >= 0; --i) {

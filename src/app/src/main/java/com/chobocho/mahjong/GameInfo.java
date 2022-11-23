@@ -1,31 +1,31 @@
 package com.chobocho.mahjong;
 
 public interface GameInfo {
-    public int addScore(int score);
-    public void init();
+    int addScore(int score);
+    void init();
 
-    public int getScore();
-    public boolean setScore(int score);
-    public boolean setHighScore(int score);
-    public void updateHighScore();
+    int getScore();
+    boolean setScore(int score);
+    boolean setHighScore(int score);
+    void updateHighScore();
 
-    public int getHighStage();
-    public boolean setHighStage(int stage);
-    public void updateHighStage();
+    int getHighStage();
+    boolean setHighStage(int stage);
+    void updateHighStage();
 
-    public int getHighScore();
-    public int calculatorScore(int removedBlockCount, int time);
-    public void backup();
-    public void revert();
-    public int getStage();
-    public void setStage(int stage);
-    public void stageUp();
-    public int getHint();
-    public int setHint(int hint);
-    public int addHint(int hint);
-    public void initTime();
-    public int getTime();
-    public int setMaxTime(int newMaxTime);
-    public boolean addTick(int t);
-    public boolean tick();
+    int getHighScore();
+    int calculatorScore(int removedBlockCount, int time);
+    void backup();
+    void revert();
+    int getStage();
+    void setStage(int stage);
+    void stageUp();
+    int getHint();
+    int setHint(int hint);
+    int addHint(int hint);
+    void initTime();
+    int getTime();
+    int setMaxTime(int newMaxTime);
+    boolean addTick(int t);
+    boolean tick();
 }
