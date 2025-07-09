@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdk 34
+    namespace "com.chobocho.imagematch"
+    compileSdk 36
+    buildToolsVersion "36.0.0"
 
     def versionPropsFile = file('versioninfo.properties')
     def Properties versionInfo = new Properties()
@@ -40,7 +42,7 @@ android {
 
     versionInfo.store(versionPropsFile.newWriter(), null)
 
-    def date = new Date();
+    def date = new Date()
     def alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     def thisYear =  alphabet.charAt(date.getYear() + 1900 - 2001)
     def thisMonth = alphabet.charAt(date.getMonth())
@@ -53,7 +55,7 @@ android {
     defaultConfig {
         applicationId "com.chobocho.ColorMatch"
         minSdkVersion 31
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode releaseVersionCode
         versionName "${versionHeader}.${thisYear}${thisMonth}${versionCount}.${buildCount}"
         setProperty("archivesBaseName", "imagematch_$versionName")
@@ -66,7 +68,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '34.0.0'
+
 }
 
 dependencies {

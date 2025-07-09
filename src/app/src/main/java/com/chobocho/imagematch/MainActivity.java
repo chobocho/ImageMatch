@@ -1,5 +1,8 @@
 package com.chobocho.imagematch;
 
+import android.graphics.Insets;
+import android.graphics.Rect;
+import android.view.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.PackageInfo;
@@ -7,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 
 import com.chobocho.mahjong.BoardGame;
 import com.chobocho.mahjong.MahjongImpl;
@@ -27,18 +29,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         versionName = getVersionName();
+        getWindow().setDecorFitsSystemWindows(false);
         init();
         setContentView(gameView);
+        // DecorView가 attach된 후에 실행하도록 post() 사용
+        getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                WindowInsetsController insetsController = getWindow().getInsetsController();
+                if (insetsController != null) {
+                    insetsController.hide(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
+                    insetsController.setSystemBarsBehavior(
+                            WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    );
+                }
+            }
+        });
     }
 
     protected void init() {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        ((Display) display).getSize(size);
-        int width = size.x;
-        int height = size.y;
-        boardProfile = new BoardProfile(versionName, width, height);
-        boardProfile.setScreenSize(width, height);
+        int safeWidth;
+        int safeHeight;
+
+        WindowManager windowManager = getWindowManager();
+        WindowMetrics windowMetrics = windowManager.getCurrentWindowMetrics();
+        Rect bounds = windowMetrics.getBounds();
+        WindowInsets insets = windowMetrics.getWindowInsets();
+        Insets systemInsets = insets.getInsetsIgnoringVisibility(
+                WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout()
+        );
+        safeWidth = bounds.width() - systemInsets.left - systemInsets.right;
+        safeHeight = bounds.height() - systemInsets.top - systemInsets.bottom;
+        boardProfile = new BoardProfile(versionName, safeWidth, safeHeight);
+        boardProfile.setScreenSize(safeWidth, safeHeight);
         gameInfo = new MajhongGameInfo(this);
         gameInfo.setMaxTime(BoardGame.MAX_TIME);
         majhong = new MahjongImpl(new AndroidLog(), gameInfo, boardProfile.boardWidth, boardProfile.boardHeight, boardProfile.blockKind);
@@ -50,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageInfo pkgInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pkgInfo.versionName;
-            Log.i(TAG, "Version Name: "+ version);
+            Log.i(TAG, "Version Name: " + version);
             return version;
-        } catch(PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             Log.i(TAG, e.toString());
         }
